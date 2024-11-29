@@ -2,23 +2,34 @@
 
 import React, { useState } from "react";
 import { TableData } from "@/core/interfaces/data/user.interface";
-import { UserPen } from "lucide-react";
+import { Check, ChevronsUpDown, UserPen } from "lucide-react";
 import { Button } from "../ui/button";
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { cn } from "@/lib/utils";
 
 // Define the props for the component
 type UserTableProps = {
   data: TableData[];
-  branch: string[];
 };
 
-const UserTable: React.FC<UserTableProps> = ({ data, branch }) => {
+const frameworks = [
+  { value: "branch a", label: "Branch A" },
+  { value: "branch b", label: "Branch B" },
+  { value: "branch c", label: "Branch C" },
+  { value: "branch d", label: "Branch D" },
+  { value: "branch e", label: "Branch E" },
+];
+
+const UserTable: React.FC<UserTableProps> = ({ data }) => {
   const [search, setSearch] = useState("");
-  const [selectedBranch, setSelectedBranch] = useState("All Branches");
+  const [selectedBranch, setSelectedBranch] = useState<string | null>("All Branches");
   const [currentPage, setCurrentPage] = useState(1);
   const rowsPerPage = 5;
 
+
   // Filter and search logic
-  const filteredUsers = data.filter((user: TableData) => selectedBranch === "All Branches" || user.branch === selectedBranch).filter((user) => [user.name, user.email, user.role].some((field) => field.toLowerCase().includes(search.toLowerCase())));
+  const filteredUsers = data.filter((user) => (selectedBranch === "All Branches" || user.branch.toLowerCase() === selectedBranch?.toLowerCase()) && [user.name, user.email, user.role].some((field) => field.toLowerCase().includes(search.toLowerCase())));
 
   // Pagination logic
   const totalPages = Math.ceil(filteredUsers.length / rowsPerPage);
@@ -36,18 +47,44 @@ const UserTable: React.FC<UserTableProps> = ({ data, branch }) => {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
-          <select
-            className="p-2 border rounded px-3"
-            value={selectedBranch}
-            onChange={(e) => setSelectedBranch(e.target.value)}>
-            {branch.map((branch) => (
-              <option
-                key={branch}
-                value={branch}>
-                {branch}
-              </option>
-            ))}
-          </select>
+
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button
+                variant="outline"
+                role="combobox"
+                aria-expanded={!!selectedBranch}
+                className="w-[200px] justify-between bg-gray-200 hover:bg-gray-200">
+                {selectedBranch ? frameworks.find((fw) => fw.value === selectedBranch)?.label || "All Branches" : "Select Branch..."}
+                <ChevronsUpDown className="opacity-50" />
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-[200px] p-0">
+              <Command>
+                <CommandInput
+                  placeholder="Search branch..."
+                  className="h-9"
+                />
+                <CommandList>
+                  <CommandEmpty>No branch found.</CommandEmpty>
+                  <CommandGroup>
+                    <CommandItem onSelect={() => setSelectedBranch("All Branches")}>
+                      All Branches
+                      <Check className={`ml-auto ${selectedBranch === "All Branches" ? "opacity-100" : "opacity-0"}`} />
+                    </CommandItem>
+                    {frameworks.map((fw) => (
+                      <CommandItem
+                        key={fw.value}
+                        onSelect={() => setSelectedBranch(fw.value)}>
+                        {fw.label}
+                        <Check className={`ml-auto ${selectedBranch === fw.value ? "opacity-100" : "opacity-0"}`} />
+                      </CommandItem>
+                    ))}
+                  </CommandGroup>
+                </CommandList>
+              </Command>
+            </PopoverContent>
+          </Popover>
         </div>
 
         {/* Table */}
@@ -98,9 +135,8 @@ const UserTable: React.FC<UserTableProps> = ({ data, branch }) => {
                   <td className="px-4 py-2 border border-gray-200 text-center">
                     <div className="flex items-center justify-center space-x-2">
                       <button className="text-teal-600 hover:text-teal-800">
-                        <UserPen/>
+                        <UserPen />
                       </button>
-            
                     </div>
                   </td>
                 </tr>

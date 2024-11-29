@@ -13,17 +13,12 @@ const data: TableData[] = [
   { id: 7, image: null, name: "Sophia Lee", email: "sophia.lee@example.com", role: "staff", branch: "Branch A", createdAt: "1 month ago", status: false },
 ];
 
-const branches = ["All Branches", "Branch A", "Branch B", "Branch C"];
-
 const UsersList = () => {
   return (
     <div>
       <UserBanner />
 
-      <UserTable
-        data={data}
-        branch={branches}
-      />
+      <UserTable data={data} />
     </div>
   );
 };
