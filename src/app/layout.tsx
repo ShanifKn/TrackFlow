@@ -3,6 +3,8 @@ import "./globals.css";
 import { Inter } from "next/font/google";
 import { SidebarProvider } from "@/components/navbar/SidebarContext";
 import { Toaster } from "@/components/ui/toaster";
+import { RouteGuard } from "@/core/routes/routeGuard";
+import { Providers } from "@/core/store/redux/provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,10 +21,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} antialiased`}>
-        <SidebarProvider>
-          <Toaster />
-          {children}
-        </SidebarProvider>
+        <Providers>
+          <RouteGuard>
+            <SidebarProvider>
+              <Toaster />
+              {children}
+            </SidebarProvider>
+          </RouteGuard>
+        </Providers>
       </body>
     </html>
   );
