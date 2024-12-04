@@ -3,7 +3,7 @@ import React from "react";
 
 const Dashboard = () => {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 p-4 ">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 p-6 ">
       <div className="p-6 rounded-lg shadow-md flex items-center justify-between border-b-8 border-teal-100 ">
         <div className="flex gap-4 items-center justify-between w-full">
           <div className="grid gap-3">

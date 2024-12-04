@@ -25,8 +25,7 @@ const UserTable: React.FC<UserTableProps> = ({ data }) => {
   const [search, setSearch] = useState("");
   const [selectedBranch, setSelectedBranch] = useState<string | null>("All Branches");
   const [currentPage, setCurrentPage] = useState(1);
-  const rowsPerPage = 5;
-
+  const rowsPerPage = 10;
 
   // Filter and search logic
   const filteredUsers = data.filter((user) => (selectedBranch === "All Branches" || user.branch.toLowerCase() === selectedBranch?.toLowerCase()) && [user.name, user.email, user.role].some((field) => field.toLowerCase().includes(search.toLowerCase())));
@@ -36,8 +35,8 @@ const UserTable: React.FC<UserTableProps> = ({ data }) => {
   const paginatedUsers = filteredUsers.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage);
 
   return (
-    <div className="bg-white my-10 p-4">
-      <div className="p-4">
+    <div className="bg-white my-10 ">
+      <div className="p-6">
         {/* Search and Dropdown */}
         <div className="flex items-center justify-between mb-4">
           <input

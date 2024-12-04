@@ -8,3 +8,10 @@ export interface TableData {
   status: boolean;
   branch: string;
 }
+
+export interface RoleData {
+  id: number;
+  title: string;
+  createdAt: string;
+  updatedAt: string;
+}
