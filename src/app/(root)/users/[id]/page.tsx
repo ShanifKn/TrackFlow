@@ -10,7 +10,7 @@ const page = () => {
   const router = useRouter();
   return (
     <>
-      <div className="flex justify-between">
+      <div className="flex justify-between items-center">
         <h1 className="text-2xl text-black font-semibold ">Edit Profile</h1>
 
         <Button

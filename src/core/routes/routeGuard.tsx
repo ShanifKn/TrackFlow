@@ -33,7 +33,7 @@ export function RouteGuard({ children }: { children: React.ReactNode }) {
       router.push("/sign-in");
     }
 
-    if (isUserAuthenticated && path === "/auth/login") {
+    if (isUserAuthenticated && path === "/sign-in") {
       router.push("/");
     }
   }

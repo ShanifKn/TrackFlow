@@ -4,7 +4,7 @@ import { Label } from "@/components/ui/label";
 import CheckboxList from "./CheckboxList";
 import { Button } from "../ui/button";
 
-const labels = ["All", "Create", "Edit", "Restore", "Delete"];
+const labels = ["All", "Create", "Edit"];
 
 const AddRole = () => {
   return (

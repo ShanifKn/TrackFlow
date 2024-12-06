@@ -17,16 +17,21 @@ const AddCategory: React.FC<AlertDialogDemoProps> = ({ open, onClose }) => {
         <AlertDialogHeader>
           <AlertDialogTitle>Add New Category?</AlertDialogTitle>
           <AlertDialogDescription>
-            {" "}
-            <div className="grid w-full items-center gap-2 mt-4">
-              <Label htmlFor="name" className="text-gray-900">Category Name</Label>
-              <Input
-                type="text"
-                id="name"
-                placeholder="Category Name"
-                className="h-12"
-              />
-            </div>
+            <>
+              <div className="grid w-full items-center gap-2 mt-4">
+                <Label
+                  htmlFor="name"
+                  className="text-gray-900">
+                  Category Name
+                </Label>
+                <Input
+                  type="text"
+                  id="name"
+                  placeholder="Category Name"
+                  className="h-12"
+                />
+              </div>
+            </>
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>

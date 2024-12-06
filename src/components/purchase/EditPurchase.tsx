@@ -63,7 +63,7 @@ const EditPurchase = () => {
         <div className="grid w-full items-center gap-2">
           <Label htmlFor="purchase_no">PO Number</Label>
           <Input
-            type="text no"
+            type="text"
             id="purchase_no"
             placeholder="PO Number"
             className="h-12"
@@ -94,7 +94,7 @@ const EditPurchase = () => {
         </div>
 
         <div className="grid w-full items-center gap-2">
-          <Label htmlFor="purchase_no">Expected GRN</Label>
+          <Label htmlFor="purchase_no">PO Expiry Date</Label>
 
           <Popover>
             <PopoverTrigger asChild>

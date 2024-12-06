@@ -10,7 +10,7 @@ const page = () => {
 
   return (
     <>
-      <div className="flex justify-between">
+      <div className="flex justify-between items-center">
         <h1 className="text-2xl text-black font-semibold "> Role Management</h1>
         <Button
           onClick={() => router.push("/roles/add-role")}

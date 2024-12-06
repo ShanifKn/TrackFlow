@@ -6,6 +6,7 @@ import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, Command
 import { Button } from "../ui/button";
 import { Label } from "@radix-ui/react-label";
 import { Input } from "../ui/input";
+import ProductDetails from "../assets/ProductDetails";
 
 interface Product {
   id: number;
@@ -13,7 +14,16 @@ interface Product {
 }
 const ProductArray = () => {
   const [value, setValue] = useState<string>(""); // For managing the selected product value
-  const [products, setProducts] = useState<Product[]>([]); // State to manage multiple product selections
+  const [products, setProducts] = useState<Product[]>([{ id: 0, value: "" }]); // State to manage multiple product selections
+  const [dialogOpen, setDialogOpen] = useState(false);
+
+  const handleOpenDialog = () => {
+    setDialogOpen(true);
+  };
+
+  const handleCloseDialog = () => {
+    setDialogOpen(false);
+  };
 
   // Dummy data for product options
   const branches = [
@@ -30,7 +40,7 @@ const ProductArray = () => {
 
   return (
     <>
-      <div className="flex gap-3 justify-between ">
+      <div className="flex gap-3 justify-between items-start">
         <h1 className="font-semibold text-black text-xl tracking-wide">Add Product</h1>
 
         <Button
@@ -89,13 +99,15 @@ const ProductArray = () => {
             </Popover>
           </div>
 
-          <div className="flex gap-3 col-span-2">
-            <div className="grid w-32  items-center gap-2">
+          <div className="flex gap-3 col-span-2 items-end">
+            <div className="grid   items-center gap-2">
               <Label htmlFor={`quantity-${product.id}`}>Quantity</Label>
               <Input
                 type="number"
                 id={`quantity-${product.id}`}
-                className="h-12"
+                className="h-12 w-28"
+                value={1}
+                readOnly={true}
               />
             </div>
 
@@ -108,6 +120,28 @@ const ProductArray = () => {
                 placeholder="Colour / Size / Brand"
               />
             </div>
+
+            <div className="grid w-full items-center gap-2">
+              <Label htmlFor={`sup-${product.id}`}>Sub Type</Label>
+              <Input
+                type="text"
+                id={`sup-${product.id}`}
+                className="h-12"
+                placeholder=""
+              />
+            </div>
+
+            <Button
+              className="text-black "
+              variant="link"
+              onClick={handleOpenDialog}>
+              View
+            </Button>
+
+            <ProductDetails
+              open={dialogOpen}
+              onClose={handleCloseDialog}
+            />
           </div>
         </div>
       ))}

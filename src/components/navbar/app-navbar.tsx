@@ -20,7 +20,11 @@ const Navbar = () => {
         {isCompact ? <PanelRightClose size={30} /> : <PanelRightOpen size={30} />}
       </button>
 
-      <div className="flex justify-end items-center p-6 px-3 w-full z-50">
+      <div className="flex justify-end items-center p-6 px-3 w-full z-50 gap-12 ">
+        <div className="px-4 py-2 bg-gray-300 rounded-md">
+          <h1 className="">Admin</h1>
+        </div>
+
         <div className="flex items-center space-x-6">
           <button className="relative focus:outline-none">
             <BellDot />

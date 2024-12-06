@@ -142,9 +142,9 @@ const PurchaseTable = () => {
                   </td>
 
                   <td className="px-4 py-2 border border-gray-200 text-center">
-                  <div className="flex items-center justify-center space-x-2">
-                    <Button className="border  border-teal-900 text-white ">view</Button>
-                  </div>
+                    <div className="flex items-center justify-center space-x-2">
+                      <Button className="border  border-teal-900 text-white ">view</Button>
+                    </div>
                   </td>
                 </tr>
               ))}
