@@ -1,7 +1,7 @@
 import AssetsList from "@/components/assets/AssetsList";
 import React from "react";
 
-const page = () => {
+const Page = () => {
   return (
     <>
       <AssetsList />
@@ -9,4 +9,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

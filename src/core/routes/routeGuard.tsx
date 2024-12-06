@@ -29,7 +29,7 @@ export function RouteGuard({ children }: { children: React.ReactNode }) {
       setHasRouteAccess(true);
       setLoading(false);
     } else {
-      // Redirect to login page
+      // Redirect to login Page
       router.push("/sign-in");
     }
 

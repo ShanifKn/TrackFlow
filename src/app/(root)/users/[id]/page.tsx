@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import AddRoles from "@/components/users/AddRoles";
 
-const page = () => {
+const Page = () => {
   const router = useRouter();
   return (
     <>
@@ -27,4 +27,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
