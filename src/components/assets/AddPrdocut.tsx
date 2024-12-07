@@ -61,8 +61,18 @@ const AddPrdocut = () => {
         </div>
 
         <div className="mt-4 flex gap-5">
+          <div className="grid w-[35rem] items-center gap-2">
+            <Label htmlFor="company">Asset ID</Label>
+            <Input
+              type="text"
+              id="company"
+              placeholder="Add asset id"
+              className="h-12"
+            />
+          </div>
+
           <div className="grid w-full items-center gap-2">
-            <Label htmlFor="category">Select Product</Label>
+            <Label htmlFor="category">Product</Label>
 
             <Popover>
               <PopoverTrigger asChild>
@@ -102,7 +112,7 @@ const AddPrdocut = () => {
             </Popover>
           </div>
 
-          <div className="grid w-full items-center gap-2">
+          <div className="grid w-32 items-center gap-2">
             <Label htmlFor="purchase_no">Quantity</Label>
             <Input
               type="text"
@@ -117,7 +127,7 @@ const AddPrdocut = () => {
             <Input
               type="text"
               id="purchase_no"
-              placeholder="PO Number"
+              placeholder="Color / Size / Brand"
               className="h-12"
             />
           </div>
@@ -129,7 +139,7 @@ const AddPrdocut = () => {
 
         <div className="flex gap-3">
           <div className="grid w-full items-center gap-2">
-            <Label htmlFor="category">Select Branch</Label>
+            <Label htmlFor="category">Branch</Label>
 
             <Popover>
               <PopoverTrigger asChild>
@@ -170,7 +180,7 @@ const AddPrdocut = () => {
           </div>
 
           <div className="grid w-full items-center gap-2">
-            <Label htmlFor="category">Select Supervisor</Label>
+            <Label htmlFor="category">Supervisor</Label>
 
             <Popover>
               <PopoverTrigger asChild>
@@ -212,7 +222,7 @@ const AddPrdocut = () => {
 
           <div className="grid w-full items-center gap-2">
             <Label htmlFor="category">
-              Select Employee <span className="text-gray-400 font-semibold">(optional)</span>
+              Employee <span className="text-gray-400 font-semibold">(optional)</span>
             </Label>
 
             <Popover>
@@ -256,7 +266,7 @@ const AddPrdocut = () => {
 
         <div className="flex gap-3">
           <div className="grid w-full items-center gap-2">
-            <Label htmlFor="purchase_no">Application Reference Number (ARN)</Label>
+            <Label htmlFor="purchase_no">Asset Reference Number (ARN)</Label>
             <Input
               type="text"
               id="purchase_no"
@@ -288,7 +298,9 @@ const AddPrdocut = () => {
           </div>
 
           <div className="grid w-full items-center gap-2">
-            <Label htmlFor="purchase_no">Asset ID</Label>
+            <Label htmlFor="purchase_no">
+              Asset ID <span className="text-gray-400 font-semibold">(duplicate)</span>
+            </Label>
             <Input
               type="text"
               id="purchase_no"
@@ -300,7 +312,7 @@ const AddPrdocut = () => {
 
         <div className="flex gap-3">
           <div className="grid w-full items-center gap-2">
-            <Label htmlFor="category">Select Counting Remarks</Label>
+            <Label htmlFor="category">Counting Remarks</Label>
 
             <Popover>
               <PopoverTrigger asChild>
@@ -346,14 +358,14 @@ const AddPrdocut = () => {
           </div>
 
           <div className="grid w-full items-center gap-2">
-            <Label htmlFor="purchase_no">Date</Label>
+            <Label htmlFor="purchase_no">Last physical verification</Label>
             <Popover>
               <PopoverTrigger asChild>
                 <Button
                   variant={"outline"}
                   className={cn("w-full h-12 justify-start text-left font-normal", !date && "text-muted-foreground")}>
                   <CalendarIcon className="mr-2 h-4 w-4" />
-                  {date ? format(date, "PPP") : <span>date</span>}
+                  {date ? format(date, "PPP") : <span>Date</span>}
                 </Button>
               </PopoverTrigger>
               <PopoverContent className="w-auto p-0">
@@ -369,29 +381,7 @@ const AddPrdocut = () => {
         </div>
       </div>
 
-      <div className="mt-7 ">
-        <Depreciation />
-      </div>
 
-      <div className="mt-7">
-        <UploadDocument />
-      </div>
-
-      <div className="mt-7 flex justify-between items-end">
-        <div className="flex w-full">
-          <div className="flex w-full items-center gap-2">
-            <Label htmlFor="purchase_no">Created At:</Label>
-            <h1 className="font-semibold text-black text-lg"> 12 sep 2024</h1>
-          </div>
-
-          <div className="flex w-full items-center gap-2">
-            <Label htmlFor="purchase_no">Updated At:</Label>
-            <h1 className="font-semibold text-black text-lg"> 12 sep 2024</h1>
-          </div>
-        </div>
-
-        <Button className="col-span-1 text-white bg-[#006666] hover:bg-emerald-800 " size={"lg"}>Save Asset</Button>
-      </div>
     </div>
   );
 };

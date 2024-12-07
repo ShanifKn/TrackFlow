@@ -1,18 +1,29 @@
 "use client";
 
-import { BellDot, ChartCandlestick, ClipboardPlus, Dessert, House, LogOut, NotebookTabs, ScanBarcode, ShieldCheck, ShoppingBag, ShoppingBasket, Signature, SquareChartGantt, Users } from "lucide-react";
+import { BellDot, ChartCandlestick, ClipboardPlus, Combine, DatabaseZap, Dessert, House, LogOut, NotebookTabs, ScanBarcode, ShieldCheck, ShoppingBag, ShoppingBasket, Signature, SquareChartGantt, Users } from "lucide-react";
 import Link from "next/link";
 import React, { useState } from "react";
 import { useSidebar } from "./SidebarContext";
+import Image from "next/image";
 
 const sidebarItems = [
   { title: "Dashboard", url: "/", icon: <House /> },
   { title: "Users", url: "/users", icon: <Users /> },
-  { title: "Vendor", url: "/vendors", icon: <Dessert /> },
-  { title: "Products", url: "/products", icon: <ScanBarcode /> },
+
   { title: "Assets", url: "/assets", icon: <SquareChartGantt /> },
   { title: "Inventory", url: "/inventory", icon: <ChartCandlestick /> },
   { title: "Reports", url: "/report", icon: <ClipboardPlus /> },
+
+  {
+    title: "Catalogue",
+    icon: <DatabaseZap />,
+    subItems: [
+      { title: "Vendor", url: "/vendors", icon: <Dessert /> },
+      { title: "Products", url: "/products", icon: <ScanBarcode /> },
+      { title: "Category", url: "/category", icon: <Combine /> },
+    ],
+  },
+
   {
     title: "Version 2",
     icon: <ShieldCheck />,
@@ -37,7 +48,18 @@ const Sidebar = () => {
 
   return (
     <div className={`fixed flex flex-col top-0 left-0 ${isCompact ? "w-[4.5rem]" : "w-72"} bg-[#006666] h-full text-white transition-all duration-300 border-none z-10 sidebar`}>
-      <div className="flex items-center justify-center h-20 shadow-md">{!isCompact && <h1 className="text-2xl uppercase text-yellow-300 font-bold">TrackFlow</h1>}</div>
+      <div className="flex items-center justify-center h-20 shadow-md">
+        {!isCompact && (
+          <h1 className="text-2xl uppercase text-yellow-300 font-bold flex items-end gap-2">
+            <Image
+              src="/logo2.jpeg"
+              width={200}
+              height={50}
+              alt="logo"
+            />
+          </h1>
+        )}
+      </div>
       <ul className={`flex flex-col py-4 ${isCompact ? "p-6" : "p-7"} space-y-2`}>
         {sidebarItems.map((item, index) => (
           <li key={index}>

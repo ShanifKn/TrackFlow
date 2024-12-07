@@ -18,7 +18,7 @@ const ProductHistory = () => {
 
   return (
     <div className="my-10 bg-white  gap-4 p-4">
-      <h1 className="font-semibold text-black text-xl tracking-wide">Product History</h1>
+      <h1 className="font-semibold text-black text-xl tracking-wide">Pruchase History</h1>
 
       {/* Table */}
       <div className="overflow-x-auto mt-5">

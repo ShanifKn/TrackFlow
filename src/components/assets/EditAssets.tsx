@@ -73,7 +73,7 @@ const EditAssets = () => {
   return (
     <div className="my-5 grid grid-cols-3 gap-4">
       <div className="col-span-1 bg-white p-6 rounded-md h-full flex flex-col gap-7">
-        <h1 className="font-semibold text-black text-xl tracking-wide">Add Asset Details</h1>
+        <h1 className="font-semibold text-black text-xl tracking-wide">Asset Details</h1>
 
         <div>
           <Label htmlFor="company">Asset ID</Label>
@@ -86,7 +86,7 @@ const EditAssets = () => {
         </div>
 
         <div className="grid w-full items-center gap-2">
-          <Label htmlFor="category">Select CO Code</Label>
+          <Label htmlFor="category">CO Code</Label>
 
           <Popover>
             <PopoverTrigger asChild>
@@ -136,7 +136,7 @@ const EditAssets = () => {
         </div>
 
         <div className="grid w-full items-center gap-2">
-          <Label htmlFor="category">Select Company</Label>
+          <Label htmlFor="category">Company</Label>
 
           <Popover>
             <PopoverTrigger asChild>
@@ -186,7 +186,7 @@ const EditAssets = () => {
         </div>
 
         <div className="grid w-full items-center gap-2">
-          <Label htmlFor="category">Select Asset Type</Label>
+          <Label htmlFor="category">Asset Type</Label>
 
           <Popover>
             <PopoverTrigger asChild>
@@ -237,7 +237,7 @@ const EditAssets = () => {
         </div>
 
         <div className="grid w-full items-center gap-2">
-          <Label htmlFor="category">Select Sub Type</Label>
+          <Label htmlFor="category">Sub Type</Label>
 
           <Popover>
             <PopoverTrigger asChild>
@@ -293,60 +293,9 @@ const EditAssets = () => {
           <h1 className="font-semibold text-black text-xl tracking-wide">Asset Classification</h1>
 
           <div className="flex gap-3">
-            {/* Vendor Dropdown */}
-            <div className="grid w-full items-center gap-2">
-              <Label htmlFor="category">Select Vendor</Label>
-              <Popover>
-                <PopoverTrigger asChild>
-                  <Button
-                    variant="outline"
-                    role="combobox"
-                    aria-haspopup="true"
-                    className="w-full justify-between h-12 text-gray-500">
-                    {productCategories.vendors.find((framework) => framework.value === value)?.label || "Select vendor..."}
-                    <ChevronsUpDown className="opacity-50" />
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent className="w-72 p-0">
-                  <Command>
-                    <CommandInput
-                      placeholder="Search vendor..."
-                      className="h-9"
-                    />
-                    <CommandList>
-                      <CommandEmpty>
-                        <div className="flex flex-col gap-2">
-                          No vendor found.
-                          <Button
-                            className="mt-1 mx-auto"
-                            size={"sm"}
-                            onClick={() => router.push("/vendors/add-vendor")}>
-                            Add vendor
-                          </Button>
-                        </div>
-                      </CommandEmpty>
-                      <CommandGroup>
-                        {productCategories.vendors.map((framework) => (
-                          <CommandItem
-                            key={framework.value}
-                            value={framework.value}
-                            onSelect={(currentValue) => {
-                              setValue(currentValue === value ? "" : currentValue);
-                            }}>
-                            {framework.label}
-                            <Check className={cn("ml-auto", value === framework.value ? "opacity-100" : "opacity-0")} />
-                          </CommandItem>
-                        ))}
-                      </CommandGroup>
-                    </CommandList>
-                  </Command>
-                </PopoverContent>
-              </Popover>
-            </div>
-
             {/* Category Dropdown */}
             <div className="grid w-full items-center gap-2">
-              <Label htmlFor="category">Select Category</Label>
+              <Label htmlFor="category">Category</Label>
               <Popover>
                 <PopoverTrigger asChild>
                   <Button
@@ -397,7 +346,7 @@ const EditAssets = () => {
 
             {/* Audit Category Dropdown */}
             <div className="grid w-full items-center gap-2">
-              <Label htmlFor="category">Select Audit Category</Label>
+              <Label htmlFor="category">Audit Category</Label>
               <Popover>
                 <PopoverTrigger asChild>
                   <Button
@@ -449,8 +398,59 @@ const EditAssets = () => {
         </div>
 
         {/* Purchase Details Section */}
-        <div className="flex flex-col gap-5 mt-7">
+        <div className="flex flex-col gap-6 mt-7 ">
           <h1 className="font-semibold text-black text-xl tracking-wide">Purchase Details</h1>
+
+          {/* Vendor Dropdown */}
+          <div className="grid w-full items-center gap-2">
+            <Label htmlFor="category">Vendor</Label>
+            <Popover>
+              <PopoverTrigger asChild>
+                <Button
+                  variant="outline"
+                  role="combobox"
+                  aria-haspopup="true"
+                  className="w-full justify-between h-12 text-gray-500">
+                  {productCategories.vendors.find((framework) => framework.value === value)?.label || "Select vendor..."}
+                  <ChevronsUpDown className="opacity-50" />
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-72 p-0">
+                <Command>
+                  <CommandInput
+                    placeholder="Search vendor..."
+                    className="h-9"
+                  />
+                  <CommandList>
+                    <CommandEmpty>
+                      <div className="flex flex-col gap-2">
+                        No vendor found.
+                        <Button
+                          className="mt-1 mx-auto"
+                          size={"sm"}
+                          onClick={() => router.push("/vendors/add-vendor")}>
+                          Add vendor
+                        </Button>
+                      </div>
+                    </CommandEmpty>
+                    <CommandGroup>
+                      {productCategories.vendors.map((framework) => (
+                        <CommandItem
+                          key={framework.value}
+                          value={framework.value}
+                          onSelect={(currentValue) => {
+                            setValue(currentValue === value ? "" : currentValue);
+                          }}>
+                          {framework.label}
+                          <Check className={cn("ml-auto", value === framework.value ? "opacity-100" : "opacity-0")} />
+                        </CommandItem>
+                      ))}
+                    </CommandGroup>
+                  </CommandList>
+                </Command>
+              </PopoverContent>
+            </Popover>
+          </div>
 
           <div className="flex gap-3">
             {/* Purchase Number */}
@@ -523,14 +523,14 @@ const EditAssets = () => {
           </div>
 
           {/* Remarks */}
-          <div className="grid w-full items-center gap-2">
+          {/* <div className="grid w-full items-center gap-2">
             <Label htmlFor="remarks">Remarks</Label>
             <Textarea
               id="remarks"
               placeholder="Additional description"
               className="w-full h-20"
             />
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

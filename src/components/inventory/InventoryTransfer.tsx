@@ -2,34 +2,9 @@ import React, { useState } from "react";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { CalendarSync, UserPen } from "lucide-react";
+import DepreciationDailog from "./DepreciationDailog";
+import { Label } from "../ui/label";
 import TransferDailog from "./TransferDailog";
-
-const data: any[] = [
-  {
-    assetId: "RH0101010",
-    product: "Mac Laptop",
-    quantity: 1,
-    recievedQuantity: 4,
-    spec: "iOS device with M4 Chip",
-    type: "laptop",
-  },
-  {
-    assetId: "RH0101010",
-    product: "Dell Monitor",
-    quantity: 1,
-    recievedQuantity: 15,
-    spec: "27-inch Full HD with anti-glare screen",
-    type: "monitor",
-  },
-  {
-    assetId: "RH0101010",
-    product: "HP Laser Printer",
-    quantity: 1,
-    recievedQuantity: 3,
-    spec: "LaserJet with wireless connectivity",
-    type: "printer",
-  },
-];
 
 const InventoryTransfer = () => {
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -43,55 +18,181 @@ const InventoryTransfer = () => {
   };
 
   return (
-    <div className="bg-white p-6 my-5">
-      <h1 className="font-semibold text-black text-xl tracking-wide">Product Details</h1>
+    <div className="my-5 bg-white p-6 rounded-md">
+      <div className="">
+        <div className="flex justify-between items-center">
+          <h1 className="font-semibold text-black text-xl tracking-wide">Product Details</h1>
 
-      <div className="overflow-x-auto mt-5">
-        <table className="min-w-full table-auto border-collapse border border-gray-200 shadow-lg rounded-lg">
-          <thead className="bg-gray-100">
-            <tr>
-              <th className="px-4 py-2 border border-gray-200 text-left">Asset Id</th>
-              <th className="px-4 py-2 border border-gray-200 text-left">Name</th>
-              <th className="px-4 py-2 border border-gray-200 text-left">Quantity</th>
-              <th className="px-4 py-2 border border-gray-200 text-left">Specification</th>
-              <th className="px-4 py-2 border border-gray-200 text-left">Type</th>
-              <th className="px-4 py-2 border border-gray-200 text-center">Transfer</th>
-            </tr>
-          </thead>
-          <tbody>
-            {data.map((user: any, index: number) => (
-              <tr
-                key={index}
-                className="hover:bg-gray-50">
-                <td className="px-4 py-2 border border-gray-200 text-black">{user.assetId}</td>
+          <Button
+            className=" text-white bg-[#006666] hover:bg-emerald-800 "
+            onClick={handleOpenDialog}>
+            Asset transfer
+          </Button>
 
-                <td className="px-4 py-2 border border-gray-200 text-black">{user.product}</td>
-                <td className="px-4 py-2 border border-gray-200">{user.quantity}</td>
+          <TransferDailog
+            open={dialogOpen}
+            onClose={handleCloseDialog}
+          />
+        </div>
+        <div className="mt-4 flex gap-5">
+          {/* Product */}
+          <div className="grid w-full items-center gap-2">
+            <Label htmlFor="product">Product</Label>
+            <Input
+              type="text"
+              id="product"
+              value="Laptop Dell Inspiron"
+              className="h-12"
+              readOnly={true}
+            />
+          </div>
 
-                <td className="px-4 py-2 border border-gray-200">{user.spec}</td>
-                <td className="px-4 py-2 border border-gray-200">{user.type}</td>
-                <td className="px-4 py-2 border border-gray-200">
-                  <div className="flex items-center justify-center space-x-2">
-                    <button
-                      className="text-teal-600 hover:text-teal-800"
-                      onClick={handleOpenDialog}>
-                      <CalendarSync />
-                    </button>
+          {/* Quantity */}
+          <div className="grid w-full items-center gap-2">
+            <Label htmlFor="quantity">Quantity</Label>
+            <Input
+              type="text"
+              id="quantity"
+              value="01"
+              className="h-12"
+              readOnly={true}
+            />
+          </div>
 
-                    <TransferDailog
-                      open={dialogOpen}
-                      onClose={handleCloseDialog}
-                    />
-                  </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+          {/* Specification */}
+          <div className="grid w-full items-center gap-2">
+            <Label htmlFor="specification">Specification</Label>
+            <Input
+              type="text"
+              id="specification"
+              value="16GB RAM, 512GB SSD"
+              className="h-12"
+              readOnly={true}
+            />
+          </div>
+        </div>
       </div>
 
-      <div className="flex justify-end">
-        <Button className="text-white bg-[#006666] hover:bg-emerald-800  mt-5 ">Save </Button>
+      <div className="mt-7 flex flex-col gap-5">
+        <h1 className="font-semibold text-black text-xl tracking-wide">Goods Receipt Note (GRN)</h1>
+
+        <div className="flex gap-3">
+          {/* Branch */}
+          <div className="grid w-full items-center gap-2">
+            <Label htmlFor="branch">Branch</Label>
+            <Input
+              type="text"
+              id="branch"
+              value="New York"
+              className="h-12"
+              readOnly={true}
+            />
+          </div>
+
+          {/* Supervisor */}
+          <div className="grid w-full items-center gap-2">
+            <Label htmlFor="supervisor">Supervisor</Label>
+            <Input
+              type="text"
+              id="supervisor"
+              value="John Doe"
+              className="h-12"
+              readOnly={true}
+            />
+          </div>
+
+          {/* Employee */}
+          <div className="grid w-full items-center gap-2">
+            <Label htmlFor="employee">
+              Employee <span className="text-gray-400 font-semibold">(optional)</span>
+            </Label>
+            <Input
+              type="text"
+              id="employee"
+              value="Jane Smith"
+              className="h-12"
+              readOnly={true}
+            />
+          </div>
+        </div>
+
+        <div className="flex gap-3">
+          {/* ARN */}
+          <div className="grid w-full items-center gap-2">
+            <Label htmlFor="arn">Asset Reference Number (ARN)</Label>
+            <Input
+              type="text"
+              id="arn"
+              value="ARN12345"
+              className="h-12"
+              readOnly={true}
+            />
+          </div>
+
+          {/* ARN Date */}
+          <div className="grid w-full items-center gap-2">
+            <Label htmlFor="arn_date">ARN Date</Label>
+            <Input
+              type="text"
+              id="arn_date"
+              value="31-08-2021"
+              className="h-12"
+              readOnly={true}
+            />
+          </div>
+
+          {/* Asset ID */}
+          <div className="grid w-full items-center gap-2">
+            <Label htmlFor="asset_id">
+              Asset ID <span className="text-gray-400 font-semibold">(duplicate)</span>
+            </Label>
+            <Input
+              type="text"
+              id="asset_id"
+              value="ASSET12345"
+              className="h-12"
+              readOnly={true}
+            />
+          </div>
+        </div>
+
+        <div className="flex gap-3">
+          {/* Counting Remarks */}
+          <div className="grid w-full items-center gap-2">
+            <Label htmlFor="counting_remarks">Counting Remarks</Label>
+            <Input
+              type="text"
+              id="counting_remarks"
+              value="Verified"
+              className="h-12"
+              readOnly={true}
+            />
+          </div>
+
+          {/* Condition */}
+          <div className="grid w-full items-center gap-2">
+            <Label htmlFor="condition">Condition on (31-08-2021)</Label>
+            <Input
+              type="text"
+              id="condition"
+              value="Good"
+              className="h-12"
+              readOnly={true}
+            />
+          </div>
+
+          {/* Date */}
+          <div className="grid w-full items-center gap-2">
+            <Label htmlFor="date">Date</Label>
+            <Input
+              type="text"
+              id="date"
+              value="31-08-2021"
+              className="h-12"
+              readOnly={true}
+            />
+          </div>
+        </div>
       </div>
     </div>
   );
