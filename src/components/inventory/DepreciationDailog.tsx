@@ -23,7 +23,7 @@ interface AlertDialogDemoProps {
 
 const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
-const TransferDailog: React.FC<AlertDialogDemoProps> = ({ open, onClose }) => {
+const DepreciationDailog: React.FC<AlertDialogDemoProps> = ({ open, onClose }) => {
   const [value, setValue] = useState<string>(""); // For managing the selected product value
   const [date, setDate] = React.useState<Date>();
 
@@ -180,4 +180,4 @@ const TransferDailog: React.FC<AlertDialogDemoProps> = ({ open, onClose }) => {
   );
 };
 
-export default TransferDailog;
+export default DepreciationDailog;

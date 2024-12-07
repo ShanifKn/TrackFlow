@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
-import TransferDailog from "../inventory/TransferDailog";
+import DepreciationDailog from "../inventory/DepreciationDailog";
 
 const Depreciation = () => {
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -26,7 +26,7 @@ const Depreciation = () => {
           Depreciation Entry{" "}
         </Button>
 
-        <TransferDailog
+        <DepreciationDailog
           open={dialogOpen}
           onClose={handleCloseDialog}
         />

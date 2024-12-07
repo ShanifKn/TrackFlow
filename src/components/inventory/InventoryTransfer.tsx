@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { CalendarSync, UserPen } from "lucide-react";
-import TransferDailog from "./TransferDailog";
+import DepreciationDailog from "./DepreciationDailog";
 import { Label } from "../ui/label";
 
 const InventoryTransfer = () => {
