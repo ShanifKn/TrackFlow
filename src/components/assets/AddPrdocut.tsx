@@ -298,7 +298,9 @@ const AddPrdocut = () => {
           </div>
 
           <div className="grid w-full items-center gap-2">
-            <Label htmlFor="purchase_no">Asset ID <span className="text-gray-400 font-semibold">(duplicate)</span></Label>
+            <Label htmlFor="purchase_no">
+              Asset ID <span className="text-gray-400 font-semibold">(duplicate)</span>
+            </Label>
             <Input
               type="text"
               id="purchase_no"
@@ -379,33 +381,7 @@ const AddPrdocut = () => {
         </div>
       </div>
 
-      <div className="mt-7 ">
-        <Depreciation />
-      </div>
 
-      <div className="mt-7">
-        <UploadDocument />
-      </div>
-
-      <div className="mt-7 flex justify-between items-end">
-        <div className="flex w-full">
-          <div className="flex w-full items-center gap-2">
-            <Label htmlFor="purchase_no">Created At:</Label>
-            <h1 className="font-semibold text-black text-lg"> 12 sep 2024</h1>
-          </div>
-
-          <div className="flex w-full items-center gap-2">
-            <Label htmlFor="purchase_no">Updated At:</Label>
-            <h1 className="font-semibold text-black text-lg"> 12 sep 2024</h1>
-          </div>
-        </div>
-
-        <Button
-          className="col-span-1 text-white bg-[#006666] hover:bg-emerald-800 "
-          size={"lg"}>
-          Save Asset
-        </Button>
-      </div>
     </div>
   );
 };

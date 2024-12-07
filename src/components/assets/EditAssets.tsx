@@ -398,7 +398,7 @@ const EditAssets = () => {
         </div>
 
         {/* Purchase Details Section */}
-        <div className="flex flex-col gap-5 mt-7">
+        <div className="flex flex-col gap-6 mt-7 ">
           <h1 className="font-semibold text-black text-xl tracking-wide">Purchase Details</h1>
 
           {/* Vendor Dropdown */}
