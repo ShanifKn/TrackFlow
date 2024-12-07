@@ -4,15 +4,35 @@ import { Button } from "../ui/button";
 import { CalendarSync, UserPen } from "lucide-react";
 import DepreciationDailog from "./DepreciationDailog";
 import { Label } from "../ui/label";
+import TransferDailog from "./TransferDailog";
 
 const InventoryTransfer = () => {
+  const [dialogOpen, setDialogOpen] = useState(false);
+
+  const handleOpenDialog = () => {
+    setDialogOpen(true);
+  };
+
+  const handleCloseDialog = () => {
+    setDialogOpen(false);
+  };
+
   return (
     <div className="my-5 bg-white p-6 rounded-md">
       <div className="">
         <div className="flex justify-between items-center">
           <h1 className="font-semibold text-black text-xl tracking-wide">Product Details</h1>
 
-          <Button className=" text-white bg-[#006666] hover:bg-emerald-800 ">Asset transfer</Button>
+          <Button
+            className=" text-white bg-[#006666] hover:bg-emerald-800 "
+            onClick={handleOpenDialog}>
+            Asset transfer
+          </Button>
+
+          <TransferDailog
+            open={dialogOpen}
+            onClose={handleCloseDialog}
+          />
         </div>
         <div className="mt-4 flex gap-5">
           {/* Product */}

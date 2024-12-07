@@ -58,7 +58,7 @@ const AddProduct = () => {
           </div>
 
           <div className="flex gap-5 items-end">
-            <div className="grid w-[450px] items-center gap-2">
+            <div className="grid w-full items-center gap-2">
               <Label htmlFor="category">Product Category</Label>
 
               <Popover
@@ -69,12 +69,12 @@ const AddProduct = () => {
                     variant="outline"
                     role="combobox"
                     aria-expanded={open}
-                    className="w-[450px] justify-between h-10 ">
+                    className="w-full justify-between h-10 ">
                     {value ? frameworks.find((framework) => framework.value === value)?.label : "Select Category..."}
                     <ChevronsUpDown className="opacity-50" />
                   </Button>
                 </PopoverTrigger>
-                <PopoverContent className="w-[450px] p-0">
+                <PopoverContent className="w-full p-0">
                   <Command>
                     <CommandInput
                       placeholder="Search Category..."
@@ -112,7 +112,18 @@ const AddProduct = () => {
               open={dialogOpen}
               onClose={handleCloseDialog}
             />
+          </div>
 
+          <div className="flex gap-3">
+            <div className="grid w-full items-center gap-2">
+              <Label htmlFor="brand">Specification </Label>
+              <Input
+                type="text"
+                id="brand"
+                placeholder="Colour / Size / Brand"
+                className="h-12"
+              />
+            </div>
             <div className="grid w-full items-center gap-2">
               <Label htmlFor="brand">Brand Name</Label>
               <Input
@@ -130,38 +141,6 @@ const AddProduct = () => {
               id="description"
               placeholder="Product Description."
             />
-          </div>
-
-          <div className="flex gap-3">
-            <div className="grid w-full items-center gap-2">
-              <Label htmlFor="brand">Specification </Label>
-              <Input
-                type="text"
-                id="brand"
-                placeholder="Colour / Size / Brand"
-                className="h-12"
-              />
-            </div>
-
-            <div className="grid w-full items-center gap-2">
-              <Label htmlFor="assetType">Asset Type</Label>
-              <Input
-                type="text"
-                id="assetType"
-                placeholder="Pickup / Laptop / Chair"
-                className="h-12"
-              />
-            </div>
-
-            <div className="grid w-full items-center gap-2">
-              <Label htmlFor="subType">Sub Type </Label>
-              <Input
-                type="text"
-                id="subType"
-                placeholder="Weight / Software / Spec"
-                className="h-12"
-              />
-            </div>
           </div>
 
           <div className="grid w-80 items-center gap-3">
