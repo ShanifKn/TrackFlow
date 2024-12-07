@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button"; // Replace with your actual Button component path
 import { Input } from "@/components/ui/input"; // Replace with your Input component path
 import { Label } from "@/components/ui/label"; // Replace with your Label component path
+import { Trash2 } from "lucide-react";
 
 const UploadDocument = () => {
   const [documents, setDocuments] = useState<File[]>([]); // State to hold uploaded documents
@@ -43,40 +44,43 @@ const UploadDocument = () => {
 
       {/* Uploaded Documents */}
       {documents.length > 0 && (
-        <div className="mt-4">
-          <h2 className="font-medium text-black text-md mb-2">Uploaded Documents</h2>
-          <div className="flex flex-wrap gap-4">
+        <section className="mt-4">
+          <h2 className="text-lg font-bold mb-4">Uploaded Documents</h2>
+          <ul className="flex flex-wrap gap-4">
             {documents.map((document, index) => (
-              <div
+              <li
                 key={index}
-                className="p-2 border rounded-md shadow-md w-64 bg-gray-50">
-                <div className="truncate">{document.name}</div>
-                {previewURLs[index] &&
-                  (document.type.startsWith("image/") ? (
-                    <img
-                      src={previewURLs[index]}
-                      alt="Document Preview"
-                      className="mt-2 rounded-md w-full h-32 object-cover"
-                    />
-                  ) : (
+                className="flex items-center justify-between p-4 bg-white drop-shadow-lg rounded-lg w-fit gap-10">
+                <div className=" text-sm font-medium">{document.name}</div>
+                <div className="flex  gap-2  w-full items-center justify-end">
+                  <div className="flex justify-between gap-2">
                     <a
                       href={previewURLs[index]}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-blue-600 mt-2 text-sm">
-                      View Document
+                      className="text-blue-500 hover:underline text-sm">
+                      View
                     </a>
-                  ))}
-                <Button
-                  variant="destructive"
-                  className="mt-2 w-full"
-                  onClick={() => handleRemoveDocument(index)}>
-                  Remove
-                </Button>
-              </div>
+                    <a
+                      href={previewURLs[index]}
+                      download
+                      className="text-green-500 hover:underline text-sm">
+                      Download
+                    </a>
+                  </div>
+                  {/* Remove Button */}
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    className=" text-red-600"
+                    onClick={() => handleRemoveDocument(index)}>
+                    <Trash2 />
+                  </Button>
+                </div>
+              </li>
             ))}
-          </div>
-        </div>
+          </ul>
+        </section>
       )}
     </div>
   );
