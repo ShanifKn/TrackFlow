@@ -18,215 +18,180 @@ const pdfFiles: PDFFile[] = [
 const DetailsPage = () => {
   return (
     <div className="grid grid-cols-3 gap-4 mt-5">
-      <div className="bg-white p-6 col-span-1">
-        <h1 className="font-semibold text-black text-xl tracking-wide">PO Details</h1>
+      <div className="col-span-1 bg-white p-6 rounded-md h-full flex flex-col gap-5">
+        <h1 className="font-semibold text-black text-xl tracking-wide">Asset Details</h1>
 
-        <div className="flex flex-col gap-3 mt-7">
-          <div className="grid w-full items-center gap-2 ">
-            <Label
-              htmlFor="purchase_no"
-              className="text-lg text-gray-600">
-              Company:
-            </Label>
-            <Input
-              type="text"
-              className="h-12"
-              value={"RH001F"}
-              readOnly={true}
-            />
-          </div>
+        {/* Asset ID */}
+        <div className="grid w-full items-center gap-2">
+          <Label htmlFor="asset-id">Asset ID:</Label>
+          <Input
+            type="text"
+            id="asset-id"
+            value="ASSET-12345"
+            className="h-12"
+            readOnly={true}
+          />
+        </div>
 
-          <div className="grid w-full items-center gap-2">
-            <Label
-              htmlFor="purchase_no"
-              className="text-lg text-gray-600">
-              Co Code:
-            </Label>
-            <Input
-              type="text"
-              className="h-12"
-              value={"RH001"}
-              readOnly={true}
-            />
-          </div>
+        {/* CO Code */}
+        <div className="grid w-full items-center gap-2">
+          <Label htmlFor="co-code">CO Code:</Label>
+          <Input
+            type="text"
+            id="co-code"
+            value="CO-001"
+            className="h-12"
+            readOnly={true}
+          />
+        </div>
 
-          <div className="grid w-full items-center gap-2">
-            <Label
-              htmlFor="purchase_no"
-              className="text-lg text-gray-600">
-              Date:
-            </Label>
-            <Input
-              type="text"
-              className="h-12"
-              value={"12 Sep 2014"}
-              readOnly={true}
-            />
-          </div>
+        {/* Company */}
+        <div className="grid w-full items-center gap-2">
+          <Label htmlFor="company">Company:</Label>
+          <Input
+            type="text"
+            id="company"
+            value="Tech Solutions Pvt. Ltd."
+            className="h-12"
+            readOnly={true}
+          />
+        </div>
+
+        {/* Asset Type */}
+        <div className="grid w-full items-center gap-2">
+          <Label htmlFor="asset-type">Asset Type:</Label>
+          <Input
+            type="text"
+            id="asset-type"
+            value="Electronics"
+            className="h-12"
+            readOnly={true}
+          />
+        </div>
+
+        {/* Sub Type */}
+        <div className="grid w-full items-center gap-2">
+          <Label htmlFor="sub-type">Sub Type:</Label>
+          <Input
+            type="text"
+            id="sub-type"
+            value="Laptop"
+            className="h-12"
+            readOnly={true}
+          />
         </div>
       </div>
 
-      <div className="bg-white p-6 col-span-2 flex flex-col gap-4">
-        <div className="flex gap-3 ">
-          <div className="grid w-full items-center gap-2 ">
-            <Label
-              htmlFor="purchase_no"
-              className="text-lg text-gray-600">
-              Branch:
-            </Label>
-            <Input
-              type="text"
-              className="h-12"
-              value={"dubai"}
-              readOnly={true}
-            />
-          </div>
+      <div className="col-span-2 bg-white p-6 rounded-md flex flex-col justify-between">
+        {/* Asset Classification Section */}
+        <div className="flex flex-col gap-6">
+          <h1 className="font-semibold text-black text-xl tracking-wide">Asset Classification</h1>
 
+          <div className="flex gap-3">
+            {/* Category */}
+            <div className="grid w-full items-center gap-2">
+              <Label htmlFor="category">Category:</Label>
+              <Input
+                type="text"
+                id="category"
+                value="Electronics"
+                className="h-12"
+                readOnly={true}
+              />
+            </div>
+
+            {/* Audit Category */}
+            <div className="grid w-full items-center gap-2">
+              <Label htmlFor="audit-category">Audit Category:</Label>
+              <Input
+                type="text"
+                id="audit-category"
+                value="Hardware"
+                className="h-12"
+                readOnly={true}
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Purchase Details Section */}
+        <div className="flex flex-col gap-5 mt-7">
+          <h1 className="font-semibold text-black text-xl tracking-wide">Purchase Details</h1>
+          {/* Vendor */}
           <div className="grid w-full items-center gap-2">
-            <Label
-              htmlFor="purchase_no"
-              className="text-lg text-gray-600">
-              Supervisor:
-            </Label>
+            <Label htmlFor="vendor">Vendor:</Label>
             <Input
               type="text"
+              id="vendor"
+              value="ABC Supplies Pvt. Ltd."
               className="h-12"
-              value={"Mohammed Nazar"}
-              readOnly={true}
-            />
-          </div>
-        </div>
-
-        <div className="flex gap-3 ">
-          <div className="grid w-full items-center gap-2 ">
-            <Label
-              htmlFor="purchase_no"
-              className="text-lg text-gray-600">
-              Vendor:
-            </Label>
-            <Input
-              type="text"
-              className="h-12"
-              value={"Sky Technologies"}
               readOnly={true}
             />
           </div>
 
+          <div className="flex gap-3">
+            {/* Purchase Number */}
+            <div className="grid w-full items-center gap-2">
+              <Label htmlFor="purchase_no">Purchase Number:</Label>
+              <Input
+                type="text"
+                id="purchase_no"
+                value="PO-123456"
+                className="h-12"
+                readOnly={true}
+              />
+            </div>
+
+            {/* Purchase Date */}
+            <div className="grid w-full items-center gap-2">
+              <Label htmlFor="purchase_date">Purchase Date:</Label>
+              <Input
+                type="text"
+                id="purchase_date"
+                value="2023-12-01"
+                className="h-12"
+                readOnly={true}
+              />
+            </div>
+          </div>
+
+          <div className="flex gap-3">
+            {/* Purchase Quantity */}
+            <div className="grid w-full items-center gap-2">
+              <Label htmlFor="purchase_quantity">Purchase Quantity:</Label>
+              <Input
+                type="text"
+                id="purchase_quantity"
+                value="01"
+                className="h-12"
+                readOnly={true}
+              />
+            </div>
+
+            {/* Purchase Value */}
+            <div className="grid w-full items-center gap-2">
+              <Label htmlFor="purchase_value">Purchase Value:</Label>
+              <Input
+                type="text"
+                id="purchase_value"
+                value="$50,000"
+                className="h-12"
+                readOnly={true}
+              />
+            </div>
+          </div>
+
+          {/* Description */}
           <div className="grid w-full items-center gap-2">
-            <Label
-              htmlFor="purchase_no"
-              className="text-lg text-gray-600">
-              Category:
-            </Label>
-            <Input
-              type="text"
-              className="h-12"
-              value={"Office Supplies"}
+            <Label htmlFor="description">Description:</Label>
+            <Textarea
+              id="description"
+              value="This is a bulk purchase of laptops for the IT department."
+              className="w-full h-20"
               readOnly={true}
             />
           </div>
         </div>
-
-        <div className="flex gap-3 ">
-          <div className="grid w-full items-center gap-2 ">
-            <Label
-              htmlFor="purchase_no"
-              className="text-lg text-gray-600">
-              Purchase Number:
-            </Label>
-            <Input
-              type="text"
-              className="h-12"
-              value={"12123123"}
-              readOnly={true}
-            />
-          </div>
-
-          <div className="grid w-full items-center gap-2">
-            <Label
-              htmlFor="purchase_no"
-              className="text-lg text-gray-600">
-              Purchase Date:
-            </Label>
-            <Input
-              type="text"
-              className="h-12"
-              value={"12 sep 2024"}
-              readOnly={true}
-            />
-          </div>
-
-          <div className="grid w-full items-center gap-2">
-            <Label
-              htmlFor="purchase_no"
-              className="text-lg text-gray-600">
-              Purchase value:
-            </Label>
-            <Input
-              type="text"
-              className="h-12"
-              value={"$ 129000"}
-              readOnly={true}
-            />
-          </div>
-        </div>
-
-        <div className="grid w-full items-center gap-2">
-          <Label
-            htmlFor="description"
-            className="text-lg text-gray-600">
-            Description
-          </Label>
-          <Textarea
-            id="description"
-            placeholder="Purchase order Description."
-            className="w-full h-20"
-            readOnly={true}
-            value={"Mitsubishi 10 Ton Pickup"}
-          />
-        </div>
-
-        <div className="grid w-full items-center gap-2">
-          <Label
-            htmlFor="remarks"
-            className="text-lg text-gray-600">
-            Remarks
-          </Label>
-          <Textarea
-            id="remarks"
-            placeholder="additional description"
-            readOnly={true}
-            value={"Passenger Van"}
-          />
-        </div>
-
-        <section className="">
-          <h2 className="text-lg font-bold mb-4">Uploaded PDFs</h2>
-          <ul className="flex gap-4 ">
-            {pdfFiles.map((file) => (
-              <li
-                key={file.id}
-                className="flex items-center justify-between p-4 bg-white drop-shadow-lg rounded-lg gap-6">
-                <span className="text-sm font-medium">{file.name}</span>
-                <div className="flex space-x-2">
-                  <a
-                    href={file.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-blue-500 hover:underline">
-                    View
-                  </a>
-                  <a
-                    href={file.url}
-                    download
-                    className="text-green-500 hover:underline">
-                    Download
-                  </a>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </section>
       </div>
     </div>
   );

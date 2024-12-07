@@ -4,6 +4,7 @@ import { BellDot, ChartCandlestick, ClipboardPlus, Dessert, House, LogOut, Noteb
 import Link from "next/link";
 import React, { useState } from "react";
 import { useSidebar } from "./SidebarContext";
+import Image from "next/image";
 
 const sidebarItems = [
   { title: "Dashboard", url: "/", icon: <House /> },
@@ -37,7 +38,18 @@ const Sidebar = () => {
 
   return (
     <div className={`fixed flex flex-col top-0 left-0 ${isCompact ? "w-[4.5rem]" : "w-72"} bg-[#006666] h-full text-white transition-all duration-300 border-none z-10 sidebar`}>
-      <div className="flex items-center justify-center h-20 shadow-md">{!isCompact && <h1 className="text-2xl uppercase text-yellow-300 font-bold">TrackFlow</h1>}</div>
+      <div className="flex items-center justify-center h-20 shadow-md">
+        {!isCompact && (
+          <h1 className="text-2xl uppercase text-yellow-300 font-bold flex items-end gap-2">
+            <Image
+              src="/logo2.jpeg"
+              width={200}
+              height={50}
+              alt="logo"
+            />
+          </h1>
+        )}
+      </div>
       <ul className={`flex flex-col py-4 ${isCompact ? "p-6" : "p-7"} space-y-2`}>
         {sidebarItems.map((item, index) => (
           <li key={index}>
