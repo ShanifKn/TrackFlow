@@ -112,9 +112,9 @@ const CreateUser = () => {
 
               <div className="flex flex-col">
                 <h1 className="text-black font-normal text-lg uppercase">
-                  Mark Jecno
+                  - -
                 </h1>
-                <span className="text-black text-base">Purchase</span>
+                <span className="text-black text-base">- -</span>
               </div>
             </div>
 
