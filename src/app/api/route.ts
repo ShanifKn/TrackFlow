@@ -106,7 +106,6 @@ export async function POST(request: any) {
         const response = await axiosInstance.post(url, data, {
           headers: { [`x-auth-token`]: authCookie },
         });
-
         return NextResponse.json({ data: response.data });
       } catch (error: any) {
         return handleError(error, NextResponse);

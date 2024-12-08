@@ -1,6 +1,9 @@
+
 import React from "react";
 import EditUser from "./EditUser";
 import UserHistory from "./UserHistory";
+import AddUsers from "./AddRoles";
+import CreateUser from "./AddUser";
 
 const frameworks = [
   {
@@ -25,14 +28,14 @@ const frameworks = [
   },
 ];
 
-const AddUsers = ({ id }: any) => {
+const CreateUsers = () => {
   return (
     <>
-      <EditUser id={id} />
+      <CreateUser />
 
       <UserHistory />
     </>
   );
 };
 
-export default AddUsers;
+export default CreateUsers;
