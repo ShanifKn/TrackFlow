@@ -17,10 +17,10 @@ export async function CheckApi() {
 }
 
 
-export async function updateUserProfile(values: any) {
+export async function updateVendorProfile(values: any) {
 
   const apiPayload = {
-    url: ApiRoutesEnum.UPDATE_USER_PROFILE,
+    url: ApiRoutesEnum.UPDATE_VENDOR_PROFILE,
     method: RequestMethod.PATCH,
     data: values, // Pass the form values or user data to be updated
   };
@@ -41,9 +41,9 @@ export async function updateUserProfile(values: any) {
   return {} as any; // Return empty object if error occurs
 }
 
-export async function addUserProfile(values: any) {
+export async function addVendorProfile(values: any) {
   const apiPayload = {
-    url: ApiRoutesEnum.ADD_USER_PROFILE,
+    url: ApiRoutesEnum.ADD_VENDOR_PROFILE,
     method: RequestMethod.POST,
     data: values, // Pass the form values or user data to be updated
   };
@@ -59,14 +59,13 @@ export async function addUserProfile(values: any) {
   if (data) {
     return data; // Successfully updated
   }
-
   showErrorToast(error); // Display error toast if an error occurred
   return {} as any; // Return empty object if error occurs
 }
 
-export async function GetUserProfileList(values: any) {
+export async function GetVendorProfileList(values: any) {
   const apiPayload = {
-    url: ApiRoutesEnum.GET_USER_PROFILE_LIST,
+    url: ApiRoutesEnum.GET_VENDOR_PROFILE_LIST,
     method: RequestMethod.GET,
     data: values, // Pass the form values or user data to be updated
   };
@@ -87,9 +86,9 @@ export async function GetUserProfileList(values: any) {
   return {} as any; // Return empty object if error occurs
 }
 
-export async function GetOneUserProfile(id: any) {
+export async function GetOneVendorProfile(id: any) {
   const apiPayload = {
-    url: ApiRoutesEnum.GET_USER_PROFILE,
+    url: ApiRoutesEnum.GET_VENDOR_PROFILE,
     method: RequestMethod.GET,
     params:id
   };

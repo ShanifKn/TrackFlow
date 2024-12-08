@@ -24,7 +24,11 @@ import {
 } from "@/components/ui/popover";
 import UploadDocument from "./UploadDocument";
 import { Textarea } from "../ui/textarea";
-import { addVendorProfile } from "@/app/api/services/vendor.service";
+import {
+  addVendorProfile,
+  GetOneVendorProfile,
+  updateVendorProfile,
+} from "@/app/api/services/vendor.service";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
 
@@ -57,17 +61,16 @@ const validationSchema = Yup.object().shape({
   address: Yup.string().required("Address is required."),
 });
 
-const AddVendor = () => {
+const EditVendor = ({ id }: any) => {
   const [open, setOpen] = useState(false);
   const [serviceOpen, setserviceOpen] = useState(false);
-
   const [category, setCategory] = useState("");
   const [serviceType, setServiceType] = useState("");
   const { toast } = useToast();
   const router = useRouter(); // Initialize the router
-
-  const initialValues = {
+  let [initialValues, setInitialValues] = useState({
     name: "",
+    vendorId: "",
     contact_name: "",
     email: "",
     phone: "",
@@ -78,28 +81,52 @@ const AddVendor = () => {
     category: "",
     service_type: "",
     address: "",
-  };
+  });
+
+  useEffect(() => {
+    const getUserDetails = async () => {
+      const user = await GetOneVendorProfile(id);
+      console.log("user", user.data);
+      setInitialValues({
+        vendorId: user.data._id || "",
+        name: user.data.name || "",
+        contact_name: user.data.contact_name || "",
+        email: user.data.email || "",
+        phone: user.data.phone || "",
+        license_no: user.data.license_no || "",
+        authority: user.data.authority || "",
+        business_type: user.data.business_type || "",
+        vat_no: user.data.vat_no || "",
+        category: user.data.category || "",
+        service_type: user.data.service_type || "",
+        address: user.data.address || "",
+      });
+    };
+
+    getUserDetails();
+  }, [id]); // Re-fetch if the `id` changes
 
   const onSubmit = async (values: typeof initialValues) => {
     try {
       console.log("Form Data:", values);
 
-      const updatedUser = await addVendorProfile(values);
+      const updatedUser = await updateVendorProfile(values);
       // Show success toast
       toast({
         title: "Success",
-        description: "Vendor profile added successfully!",
+        description: "Vendor profile updated successfully!",
         duration: 5000, // Toast duration
       });
       // Redirect to the '/users' route after a successful operation
       router.push("/vendors");
     } catch (error) {
-      console.log("Error updating profile:", error);
+      console.error("Error updating profile:", error);
     }
   };
 
   return (
     <Formik
+      enableReinitialize={true}
       initialValues={initialValues}
       validationSchema={validationSchema}
       onSubmit={onSubmit}
@@ -398,7 +425,7 @@ const AddVendor = () => {
                   type="submit"
                   className="bg-[#006666] text-white hover:bg-emerald-800"
                 >
-                  Create Vendor
+                  Edit Vendor
                 </Button>
               </div>
             </div>
@@ -409,4 +436,4 @@ const AddVendor = () => {
   );
 };
 
-export default AddVendor;
+export default EditVendor;

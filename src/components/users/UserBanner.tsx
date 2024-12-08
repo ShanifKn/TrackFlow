@@ -54,7 +54,7 @@ export const UserBanner = () => {
           <h3 className="font-semibold text-xl ">User</h3>
           <Button
             className="text-white bg-[#006666] hover:bg-emerald-800"
-            onClick={() => router.push("/users/add-user")}>
+            onClick={() => router.push("/users/create")}>
             Add user
           </Button>
         </div>

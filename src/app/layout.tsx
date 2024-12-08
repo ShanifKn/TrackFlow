@@ -22,12 +22,12 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.className} antialiased`}>
         <Providers>
-          <RouteGuard>
+          {/* <RouteGuard> */}
             <SidebarProvider>
               <Toaster />
               {children}
             </SidebarProvider>
-          </RouteGuard>
+          {/* </RouteGuard> */}
         </Providers>
       </body>
     </html>
