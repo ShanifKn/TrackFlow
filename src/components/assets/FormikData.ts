@@ -47,8 +47,4 @@ export const validationSchema = Yup.object({
   supervisor: Yup.string().required("Supervisor is required"),
   arn_no: Yup.string().required("ARN Number is required"),
   arn_date: Yup.date().required("ARN Date is required"),
-  counting_remark: Yup.string().optional(),
-  condition: Yup.string().required("Condition is required"),
-  condition_date: Yup.date().required("Condition date is required"),
-  last_check_date: Yup.date().required("Last check date is required"),
 });

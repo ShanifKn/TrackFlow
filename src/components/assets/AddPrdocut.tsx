@@ -12,6 +12,8 @@ import { Calendar as CalendarIcon } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
 import Depreciation from "./Depreciation";
 import UploadDocument from "../vendor/UploadDocument";
+import { InitialValues } from "@/core/interfaces/data/asset.interface";
+import { ErrorMessage, Field } from "formik";
 
 const productCategories = {
   coCodes: [
@@ -47,7 +49,12 @@ const productCategories = {
   ],
 };
 
-const AddPrdocut = () => {
+interface EditAssetsProps {
+  values: InitialValues;
+  setFieldValue: (field: string, value: any) => void;
+}
+
+const AddPrdocut: React.FC<EditAssetsProps> = ({ values, setFieldValue }) => {
   const [date, setDate] = React.useState<Date>();
   const [value, setValue] = React.useState("");
 
@@ -57,22 +64,34 @@ const AddPrdocut = () => {
         <div className="flex justify-between items-center">
           <h1 className="font-semibold text-black text-xl tracking-wide">Product Details</h1>
 
-          <Button className=" text-white bg-[#006666] hover:bg-emerald-800 ">Add New Product</Button>
+          <Button
+            className=" text-white bg-[#006666] hover:bg-emerald-800"
+            type="button">
+            Add New Product
+          </Button>
         </div>
 
         <div className="mt-4 flex gap-5">
-          <div className="grid w-[35rem] items-center gap-2">
-            <Label htmlFor="company">Asset ID</Label>
-            <Input
-              type="text"
-              id="company"
+          <div className="grid w-full items-center gap-2">
+            <Label htmlFor="asset_id">Asset ID</Label>
+
+            <Field
+              name="asset_id"
               placeholder="Add asset id"
-              className="h-12"
+              className="h-12 border-gray-300 rounded-md"
+              as={Input} // Ensure you're using the correct component
+              type="text"
+            />
+
+            <ErrorMessage
+              name="asset_id"
+              component="p"
+              className="text-red-500 text-sm"
             />
           </div>
 
           <div className="grid w-full items-center gap-2">
-            <Label htmlFor="category">Product</Label>
+            <Label htmlFor="product">Product</Label>
 
             <Popover>
               <PopoverTrigger asChild>
@@ -81,7 +100,7 @@ const AddPrdocut = () => {
                   role="combobox"
                   aria-haspopup="true"
                   className="w-full justify-between h-12 text-gray-500">
-                  {productCategories.coCodes.find((framework) => framework.value === value)?.label || "Select product..."}
+                  {productCategories.coCodes.find((framework) => framework.value === values.product)?.label || "Select product..."}
                   <ChevronsUpDown className="opacity-50" />
                 </Button>
               </PopoverTrigger>
@@ -99,10 +118,10 @@ const AddPrdocut = () => {
                           key={framework.value}
                           value={framework.value}
                           onSelect={(currentValue) => {
-                            setValue(currentValue === value ? "" : currentValue);
+                            setFieldValue("product", currentValue);
                           }}>
                           {framework.label}
-                          <Check className={cn("ml-auto", value === framework.value ? "opacity-100" : "opacity-0")} />
+                          <Check className={cn("ml-auto", values.product === framework.value ? "opacity-100" : "opacity-0")} />
                         </CommandItem>
                       ))}
                     </CommandGroup>
@@ -110,16 +129,25 @@ const AddPrdocut = () => {
                 </Command>
               </PopoverContent>
             </Popover>
+
+            <ErrorMessage
+              name="product"
+              component="p"
+              className="text-red-500 text-sm"
+            />
           </div>
 
           <div className="grid w-32 items-center gap-2">
-            <Label htmlFor="purchase_no">Quantity</Label>
-            <Input
-              type="text"
-              id="purchase_no"
+            <Label htmlFor="purchase_quantity">Quantity</Label>
+
+            <Field
+              name="purchase_quantity"
               placeholder="01"
               className="h-12"
+              as={Input} // Ensure you're using the correct component
+              type="text"
             />
+
           </div>
 
           <div className="grid w-full items-center gap-2">
@@ -148,7 +176,7 @@ const AddPrdocut = () => {
                   role="combobox"
                   aria-haspopup="true"
                   className="w-full justify-between h-12 text-gray-500">
-                  {productCategories.branches.find((framework) => framework.value === value)?.label || "Select branch..."}
+                  {productCategories.branches.find((framework) => framework.value === values.branch)?.label || "Select branch..."}
                   <ChevronsUpDown className="opacity-50" />
                 </Button>
               </PopoverTrigger>
@@ -166,10 +194,10 @@ const AddPrdocut = () => {
                           key={framework.value}
                           value={framework.value}
                           onSelect={(currentValue) => {
-                            setValue(currentValue === value ? "" : currentValue);
+                            setFieldValue("branch", currentValue);
                           }}>
                           {framework.label}
-                          <Check className={cn("ml-auto", value === framework.value ? "opacity-100" : "opacity-0")} />
+                          <Check className={cn("ml-auto", values.branch === framework.value ? "opacity-100" : "opacity-0")} />
                         </CommandItem>
                       ))}
                     </CommandGroup>
@@ -177,6 +205,12 @@ const AddPrdocut = () => {
                 </Command>
               </PopoverContent>
             </Popover>
+
+            <ErrorMessage
+              name="branch"
+              component="p"
+              className="text-red-500 text-sm"
+            />
           </div>
 
           <div className="grid w-full items-center gap-2">
@@ -189,7 +223,7 @@ const AddPrdocut = () => {
                   role="combobox"
                   aria-haspopup="true"
                   className="w-full justify-between h-12 text-gray-500">
-                  {productCategories.supervisors.find((framework) => framework.value === value)?.label || "Select supervisor..."}
+                  {productCategories.supervisors.find((framework) => framework.value === values.supervisor)?.label || "Select supervisor..."}
                   <ChevronsUpDown className="opacity-50" />
                 </Button>
               </PopoverTrigger>
@@ -202,15 +236,15 @@ const AddPrdocut = () => {
                   <CommandList>
                     <CommandEmpty>No supervisor found.</CommandEmpty>
                     <CommandGroup>
-                      {productCategories.employees.map((framework) => (
+                      {productCategories.supervisors.map((framework) => (
                         <CommandItem
                           key={framework.value}
                           value={framework.value}
                           onSelect={(currentValue) => {
-                            setValue(currentValue === value ? "" : currentValue);
+                            setFieldValue("supervisor", currentValue);
                           }}>
                           {framework.label}
-                          <Check className={cn("ml-auto", value === framework.value ? "opacity-100" : "opacity-0")} />
+                          <Check className={cn("ml-auto", values.supervisor === framework.value ? "opacity-100" : "opacity-0")} />
                         </CommandItem>
                       ))}
                     </CommandGroup>
@@ -218,6 +252,12 @@ const AddPrdocut = () => {
                 </Command>
               </PopoverContent>
             </Popover>
+
+            <ErrorMessage
+              name="supervisor"
+              component="p"
+              className="text-red-500 text-sm"
+            />
           </div>
 
           <div className="grid w-full items-center gap-2">
@@ -232,7 +272,7 @@ const AddPrdocut = () => {
                   role="combobox"
                   aria-haspopup="true"
                   className="w-full justify-between h-12 text-gray-500">
-                  {productCategories.employees.find((framework) => framework.value === value)?.label || "Select employee..."}
+                  {productCategories.employees.find((item) => item.value === values.employee)?.label || "Select employee..."}
                   <ChevronsUpDown className="opacity-50" />
                 </Button>
               </PopoverTrigger>
@@ -245,15 +285,15 @@ const AddPrdocut = () => {
                   <CommandList>
                     <CommandEmpty>No employee found.</CommandEmpty>
                     <CommandGroup>
-                      {productCategories.employees.map((framework) => (
+                      {productCategories.employees.map((item) => (
                         <CommandItem
-                          key={framework.value}
-                          value={framework.value}
+                          key={item.value}
+                          value={item.value}
                           onSelect={(currentValue) => {
-                            setValue(currentValue === value ? "" : currentValue);
+                            setFieldValue("employee", currentValue);
                           }}>
-                          {framework.label}
-                          <Check className={cn("ml-auto", value === framework.value ? "opacity-100" : "opacity-0")} />
+                          {item.label}
+                          <Check className={cn("ml-auto", values.employee === item.value ? "opacity-100" : "opacity-0")} />
                         </CommandItem>
                       ))}
                     </CommandGroup>
@@ -266,17 +306,25 @@ const AddPrdocut = () => {
 
         <div className="flex gap-3">
           <div className="grid w-full items-center gap-2">
-            <Label htmlFor="purchase_no">Asset Reference Number (ARN)</Label>
-            <Input
-              type="text"
-              id="purchase_no"
-              placeholder="PO Number"
+            <Label htmlFor="arn_no">Asset Reference Number (ARN)</Label>
+
+            <Field
+              name="arn_no"
+              placeholder="ARN NO"
               className="h-12"
+              as={Input} // Ensure you're using the correct component
+              type="text"
+            />
+
+            <ErrorMessage
+              name="arn_no"
+              component="p"
+              className="text-red-500 text-sm"
             />
           </div>
 
           <div className="grid w-full items-center gap-2">
-            <Label htmlFor="purchase_no">ARN Date</Label>
+            <Label htmlFor="arn_date">ARN Date</Label>
             <Popover>
               <PopoverTrigger asChild>
                 <Button
@@ -289,12 +337,18 @@ const AddPrdocut = () => {
               <PopoverContent className="w-auto p-0">
                 <Calendar
                   mode="single"
-                  selected={date}
-                  onSelect={setDate}
+                  selected={values.arn_date ? new Date(values.arn_date) : undefined}
+                  onSelect={(selectedDate) => setFieldValue("arn_date", selectedDate)}
                   initialFocus
                 />
               </PopoverContent>
             </Popover>
+
+            <ErrorMessage
+              name="arn_date"
+              component="p"
+              className="text-red-500 text-sm"
+            />
           </div>
 
           <div className="grid w-full items-center gap-2">
@@ -321,23 +375,24 @@ const AddPrdocut = () => {
                   role="combobox"
                   aria-haspopup="true"
                   className="w-full justify-between h-12 text-gray-500">
-                  {productCategories.counting.find((framework) => framework.value === value)?.label || "Select counting remark..."}
+                  {/* For Condition */}
+                  {productCategories.counting.find((item) => item.value === values.counting_remark)?.label || "Select condition..."}
                   <ChevronsUpDown className="opacity-50" />
                 </Button>
               </PopoverTrigger>
-              <PopoverContent className="w-96 p-0">
+              <PopoverContent className="w-[510px] p-0">
                 <Command>
                   <CommandList>
                     <CommandGroup>
-                      {productCategories.counting.map((framework) => (
+                      {productCategories.counting.map((item) => (
                         <CommandItem
-                          key={framework.value}
-                          value={framework.value}
+                          key={item.value}
+                          value={item.value}
                           onSelect={(currentValue) => {
-                            setValue(currentValue === value ? "" : currentValue);
+                            setFieldValue("counting_remark", currentValue);
                           }}>
-                          {framework.label}
-                          <Check className={cn("ml-auto", value === framework.value ? "opacity-100" : "opacity-0")} />
+                          {item.label}
+                          <Check className={cn("ml-auto", values.counting_remark === item.value ? "opacity-100" : "opacity-0")} />
                         </CommandItem>
                       ))}
                     </CommandGroup>
@@ -348,12 +403,14 @@ const AddPrdocut = () => {
           </div>
 
           <div className="grid w-full items-center gap-2">
-            <Label htmlFor="purchase_no">Condition on (31-08-2021)</Label>
-            <Input
+            <Label htmlFor="condition">Condition on (31-08-2021)</Label>
+
+            <Field
               type="text"
-              id="purchase_no"
+              name="condition"
               placeholder="Good / Bad"
-              className="h-12"
+              className="h-12 border-gray-300 rounded-md"
+              as={Input}
             />
           </div>
 
@@ -363,16 +420,16 @@ const AddPrdocut = () => {
               <PopoverTrigger asChild>
                 <Button
                   variant={"outline"}
-                  className={cn("w-full h-12 justify-start text-left font-normal", !date && "text-muted-foreground")}>
+                  className={cn("w-full h-12 justify-start text-left font-normal", !values.last_check_date && "text-muted-foreground")}>
                   <CalendarIcon className="mr-2 h-4 w-4" />
-                  {date ? format(date, "PPP") : <span>Date</span>}
+                  {values.last_check_date ? format(new Date(values.last_check_date), "PPP") : <span>PO date</span>}
                 </Button>
               </PopoverTrigger>
               <PopoverContent className="w-auto p-0">
                 <Calendar
                   mode="single"
-                  selected={date}
-                  onSelect={setDate}
+                  selected={values.last_check_date ? new Date(values.last_check_date) : undefined}
+                  onSelect={(selectedDate) => setFieldValue("last_check_date", selectedDate)}
                   initialFocus
                 />
               </PopoverContent>
@@ -380,8 +437,6 @@ const AddPrdocut = () => {
           </div>
         </div>
       </div>
-
-
     </div>
   );
 };

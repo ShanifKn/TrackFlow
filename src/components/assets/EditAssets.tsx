@@ -82,14 +82,17 @@ const EditAssets: React.FC<EditAssetsProps> = ({ values, setFieldValue }) => {
       <div className="col-span-1 bg-white p-6 rounded-md h-full flex flex-col gap-7">
         <h1 className="font-semibold text-black text-xl tracking-wide">Asset Details</h1>
 
-        <div>
+        <div className="grid w-full items-center gap-2">
           <Label htmlFor="asset_id">Asset ID</Label>
+
           <Field
             name="asset_id"
             placeholder="Add asset id"
-            className="h-12"
-            component={Input}
+            className="h-12 border-gray-300 rounded-md"
+            as={Input} // Ensure you're using the correct component
+            type="text"
           />
+
           <ErrorMessage
             name="asset_id"
             component="p"
@@ -107,7 +110,7 @@ const EditAssets: React.FC<EditAssetsProps> = ({ values, setFieldValue }) => {
                 role="combobox"
                 aria-haspopup="true"
                 className="w-full justify-between h-12 text-gray-500">
-                {productCategories.coCodes.find((framework) => framework.value === value)?.label || "Select co code..."}
+                {productCategories.coCodes.find((framework) => framework.value === values.co_code)?.label || "Select co code..."}
                 <ChevronsUpDown className="opacity-50" />
               </Button>
             </PopoverTrigger>
@@ -135,10 +138,9 @@ const EditAssets: React.FC<EditAssetsProps> = ({ values, setFieldValue }) => {
                         value={framework.value}
                         onSelect={(currentValue) => {
                           setFieldValue("co_code", currentValue);
-                          setValue(currentValue === value ? "" : currentValue);
                         }}>
                         {framework.label}
-                        <Check className={cn("ml-auto", value === framework.value ? "opacity-100" : "opacity-0")} />
+                        <Check className={cn("ml-auto", values.co_code === framework.value ? "opacity-100" : "opacity-0")} />
                       </CommandItem>
                     ))}
                   </CommandGroup>
@@ -164,7 +166,7 @@ const EditAssets: React.FC<EditAssetsProps> = ({ values, setFieldValue }) => {
                 role="combobox"
                 aria-haspopup="true"
                 className="w-full justify-between h-12 text-gray-500">
-                {productCategories.companies.find((framework) => framework.value === value)?.label || "Select company..."}
+                {productCategories.companies.find((framework) => framework.value === values.company)?.label || "Select company..."}
                 <ChevronsUpDown className="opacity-50" />
               </Button>
             </PopoverTrigger>
@@ -192,10 +194,9 @@ const EditAssets: React.FC<EditAssetsProps> = ({ values, setFieldValue }) => {
                         value={framework.value}
                         onSelect={(currentValue) => {
                           setFieldValue("company", currentValue);
-                          setValue(currentValue === value ? "" : currentValue);
                         }}>
                         {framework.label}
-                        <Check className={cn("ml-auto", value === framework.value ? "opacity-100" : "opacity-0")} />
+                        <Check className={cn("ml-auto", values.company === framework.value ? "opacity-100" : "opacity-0")} />
                       </CommandItem>
                     ))}
                   </CommandGroup>
@@ -221,7 +222,7 @@ const EditAssets: React.FC<EditAssetsProps> = ({ values, setFieldValue }) => {
                 role="combobox"
                 aria-haspopup="true"
                 className="w-full justify-between h-12 text-gray-500">
-                {productCategories.assetTypes.find((framework) => framework.value === value)?.label || "Select asset type..."}
+                {productCategories.assetTypes.find((framework) => framework.value === values.asset_type)?.label || "Select asset type..."}
                 <ChevronsUpDown className="opacity-50" />
               </Button>
             </PopoverTrigger>
@@ -250,10 +251,9 @@ const EditAssets: React.FC<EditAssetsProps> = ({ values, setFieldValue }) => {
                         value={framework.value}
                         onSelect={(currentValue) => {
                           setFieldValue("asset_type", currentValue);
-                          setValue(currentValue === value ? "" : currentValue);
                         }}>
                         {framework.label}
-                        <Check className={cn("ml-auto", value === framework.value ? "opacity-100" : "opacity-0")} />
+                        <Check className={cn("ml-auto", values.asset_type === framework.value ? "opacity-100" : "opacity-0")} />
                       </CommandItem>
                     ))}
                   </CommandGroup>
@@ -279,7 +279,7 @@ const EditAssets: React.FC<EditAssetsProps> = ({ values, setFieldValue }) => {
                 role="combobox"
                 aria-haspopup="true"
                 className="w-full justify-between h-12 text-gray-500">
-                {productCategories.assetTypes.find((framework) => framework.value === value)?.label || "Select sub type..."}
+                {productCategories.assetTypes.find((framework) => framework.value === values.sub_type)?.label || "Select sub type..."}
                 <ChevronsUpDown className="opacity-50" />
               </Button>
             </PopoverTrigger>
@@ -307,10 +307,9 @@ const EditAssets: React.FC<EditAssetsProps> = ({ values, setFieldValue }) => {
                         value={framework.value}
                         onSelect={(currentValue) => {
                           setFieldValue("sub_type", currentValue);
-                          setValue(currentValue === value ? "" : currentValue);
                         }}>
                         {framework.label}
-                        <Check className={cn("ml-auto", value === framework.value ? "opacity-100" : "opacity-0")} />
+                        <Check className={cn("ml-auto", values.sub_type === framework.value ? "opacity-100" : "opacity-0")} />
                       </CommandItem>
                     ))}
                   </CommandGroup>
@@ -343,7 +342,7 @@ const EditAssets: React.FC<EditAssetsProps> = ({ values, setFieldValue }) => {
                     role="combobox"
                     aria-haspopup="true"
                     className="w-full justify-between h-12 text-gray-500">
-                    {productCategories.categories.find((framework) => framework.value === value)?.label || "Select category..."}
+                    {productCategories.categories.find((framework) => framework.value === values.category)?.label || "Select category..."}
                     <ChevronsUpDown className="opacity-50" />
                   </Button>
                 </PopoverTrigger>
@@ -372,10 +371,9 @@ const EditAssets: React.FC<EditAssetsProps> = ({ values, setFieldValue }) => {
                             value={framework.value}
                             onSelect={(currentValue) => {
                               setFieldValue("category", currentValue);
-                              setValue(currentValue === value ? "" : currentValue);
                             }}>
                             {framework.label}
-                            <Check className={cn("ml-auto", value === framework.value ? "opacity-100" : "opacity-0")} />
+                            <Check className={cn("ml-auto", values.category === framework.value ? "opacity-100" : "opacity-0")} />
                           </CommandItem>
                         ))}
                       </CommandGroup>
@@ -401,7 +399,7 @@ const EditAssets: React.FC<EditAssetsProps> = ({ values, setFieldValue }) => {
                     role="combobox"
                     aria-haspopup="true"
                     className="w-full justify-between h-12 text-gray-500">
-                    {productCategories.auditCategories.find((framework) => framework.value === value)?.label || "Select audit category..."}
+                    {productCategories.auditCategories.find((framework) => framework.value === values.audit_category)?.label || "Select audit category..."}
                     <ChevronsUpDown className="opacity-50" />
                   </Button>
                 </PopoverTrigger>
@@ -430,10 +428,9 @@ const EditAssets: React.FC<EditAssetsProps> = ({ values, setFieldValue }) => {
                             value={framework.value}
                             onSelect={(currentValue) => {
                               setFieldValue("audit_category", currentValue);
-                              setValue(currentValue === value ? "" : currentValue);
                             }}>
                             {framework.label}
-                            <Check className={cn("ml-auto", value === framework.value ? "opacity-100" : "opacity-0")} />
+                            <Check className={cn("ml-auto", values.audit_category === framework.value ? "opacity-100" : "opacity-0")} />
                           </CommandItem>
                         ))}
                       </CommandGroup>
@@ -465,7 +462,7 @@ const EditAssets: React.FC<EditAssetsProps> = ({ values, setFieldValue }) => {
                   role="combobox"
                   aria-haspopup="true"
                   className="w-full justify-between h-12 text-gray-500">
-                  {productCategories.vendors.find((framework) => framework.value === value)?.label || "Select vendor..."}
+                  {productCategories.vendors.find((framework) => framework.value === values.vendor)?.label || "Select vendor..."}
                   <ChevronsUpDown className="opacity-50" />
                 </Button>
               </PopoverTrigger>
@@ -494,10 +491,9 @@ const EditAssets: React.FC<EditAssetsProps> = ({ values, setFieldValue }) => {
                           value={framework.value}
                           onSelect={(currentValue) => {
                             setFieldValue("vendor", currentValue);
-                            setValue(currentValue === value ? "" : currentValue);
                           }}>
                           {framework.label}
-                          <Check className={cn("ml-auto", value === framework.value ? "opacity-100" : "opacity-0")} />
+                          <Check className={cn("ml-auto", values.vendor === framework.value ? "opacity-100" : "opacity-0")} />
                         </CommandItem>
                       ))}
                     </CommandGroup>
@@ -520,10 +516,10 @@ const EditAssets: React.FC<EditAssetsProps> = ({ values, setFieldValue }) => {
 
               <Field
                 type="text"
-                id="purchase_no"
+                name="purchase_no"
                 placeholder="PO Number"
-                className="h-12"
-                component={Input}
+                className="h-12 border-gray-300 rounded-md"
+                as={Input}
               />
 
               <ErrorMessage
@@ -615,14 +611,6 @@ const EditAssets: React.FC<EditAssetsProps> = ({ values, setFieldValue }) => {
           </div>
 
           {/* Remarks */}
-          {/* <div className="grid w-full items-center gap-2">
-            <Label htmlFor="remarks">Remarks</Label>
-            <Textarea
-              id="remarks"
-              placeholder="Additional description"
-              className="w-full h-20"
-            />
-          </div> */}
         </div>
       </div>
     </div>

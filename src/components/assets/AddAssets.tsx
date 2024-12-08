@@ -10,10 +10,15 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { initialValues, validationSchema } from "./FormikData";
 import { InitialValues } from "@/core/interfaces/data/asset.interface";
+import { CreateAsset } from "@/app/api/services/asset.service";
 
 const AddAssets = () => {
-  const onSubmit = (values: InitialValues) => {
+  const onSubmit = async (values: InitialValues) => {
     console.log("Form data submitted:", values);
+
+    const res = await CreateAsset(values);
+
+    console.log(res);
   };
 
   return (
@@ -29,7 +34,10 @@ const AddAssets = () => {
               setFieldValue={setFieldValue}
             />
 
-            <AddPrdocut />
+            <AddPrdocut
+              values={values}
+              setFieldValue={setFieldValue}
+            />
 
             {/* <Depreciation /> */}
 
