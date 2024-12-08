@@ -1,6 +1,6 @@
 import { Label } from "@radix-ui/react-label";
 import { UserRound } from "lucide-react";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Textarea } from "../ui/textarea";
 import { Input } from "../ui/input";
 import { Check, ChevronsUpDown } from "lucide-react";
@@ -23,7 +23,6 @@ import {
 } from "@/components/ui/popover";
 import {
   addUserProfile,
-  GetOneUserProfile,
   updateUserProfile,
 } from "@/app/api/services/user.service";
 import { useToast } from "@/hooks/use-toast";
@@ -58,58 +57,31 @@ const validationSchema = Yup.object().shape({
   lastName: Yup.string().required("Last Name is required."),
 });
 
-const EditUser = ({ id }: any) => {
+const CreateUser = () => {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
   const { toast } = useToast();
   const router = useRouter(); // Initialize the router
-  let [initialValues, setInitialValues] = useState({
+  const initialValues = {
     bio: "",
-    userId: "",
     email: "",
     password: "",
     branch: "",
     role: "",
     firstName: "",
     lastName: "",
-  });
-
-  useEffect(() => {
-    const getUserDetails = async () => {
-      const user = await GetOneUserProfile(id);
-      console.log("user", user.data);
-      setInitialValues({
-        bio: user.data.bio || "",
-        userId: user.data._id || "",
-        email: user.data.email || "",
-        password: user.data.password, // Set default empty password
-        branch: user.data.branch || "",
-        role: user.data.role || "",
-        firstName: user.data.firstName || "",
-        lastName: user.data.lastName || "",
-      });
-    };
-
-    getUserDetails();
-  }, [id]); // Re-fetch if the `id` changes
-
-  const getUserDetails = async () => {
-    console.log("id", id);
-    const user = await GetOneUserProfile(id);
-    setInitialValues(user.data);
-    console.log("user", user.data);
   };
 
   const onSubmit = async (values: typeof initialValues) => {
     try {
-      const updatedUser = await updateUserProfile(values);
+      const updatedUser = await addUserProfile(values);
       console.log("Form Data:", updatedUser);
       // Redirect to the '/users' route after a successful operation
       // router.push("/users");
       // Show success toast
       toast({
         title: "Success",
-        description: "User profile updated successfully!",
+        description: "User profile added successfully!",
         duration: 5000, // Toast duration
       });
       // Redirect to the '/users' route after a successful operation
@@ -121,7 +93,6 @@ const EditUser = ({ id }: any) => {
 
   return (
     <Formik
-      enableReinitialize={true}
       initialValues={initialValues}
       validationSchema={validationSchema}
       onSubmit={onSubmit}
@@ -191,7 +162,7 @@ const EditUser = ({ id }: any) => {
           <div className="col-span-2 bg-white p-6 rounded flex flex-col gap-6 justify-between">
             <div className="flex flex-col gap-6">
               <h1 className="font-semibold text-black text-xl tracking-wide">
-                Edit Profile
+                Add Profile
               </h1>
 
               <div className="flex gap-4">
@@ -348,7 +319,7 @@ const EditUser = ({ id }: any) => {
                 type="submit"
                 className="text-white bg-[#006666] hover:bg-emerald-800"
               >
-                Edit User
+                Create User
               </Button>
             </div>
           </div>
@@ -358,4 +329,4 @@ const EditUser = ({ id }: any) => {
   );
 };
 
-export default EditUser;
+export default CreateUser;
