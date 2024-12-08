@@ -9,7 +9,6 @@ const Dashboard = () => {
     try {
       const res = await CheckApi();
 
-      console.log("hhahha", res);
     } catch (error) {}
   };
 

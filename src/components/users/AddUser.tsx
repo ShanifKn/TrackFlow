@@ -75,7 +75,6 @@ const CreateUser = () => {
   const onSubmit = async (values: typeof initialValues) => {
     try {
       const updatedUser = await addUserProfile(values);
-      console.log("Form Data:", updatedUser);
       // Redirect to the '/users' route after a successful operation
       // router.push("/users");
       // Show success toast

@@ -86,11 +86,11 @@ const UsersList = () => {
     const fetchUsers = async () => {
       try {
         const response = await GetUserProfileList("");
-        console.log(response.data);
+      
         setUsers(response.data); // Assuming the response contains the list of users
       } catch (err) {
         setError("Error fetching users");
-        console.log("Error fetching users:", err);
+
       } finally {
         setLoading(false);
       }

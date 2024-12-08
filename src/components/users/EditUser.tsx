@@ -77,7 +77,7 @@ const EditUser = ({ id }: any) => {
   useEffect(() => {
     const getUserDetails = async () => {
       const user = await GetOneUserProfile(id);
-      console.log("user", user.data);
+
       setInitialValues({
         bio: user.data.bio || "",
         userId: user.data._id || "",
@@ -94,10 +94,10 @@ const EditUser = ({ id }: any) => {
   }, [id]); // Re-fetch if the `id` changes
 
   const getUserDetails = async () => {
-    console.log("id", id);
+
     const user = await GetOneUserProfile(id);
     setInitialValues(user.data);
-    console.log("user", user.data);
+
   };
 
   const onSubmit = async (values: typeof initialValues) => {

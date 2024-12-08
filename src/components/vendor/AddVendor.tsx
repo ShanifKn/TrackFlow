@@ -82,7 +82,7 @@ const AddVendor = () => {
 
   const onSubmit = async (values: typeof initialValues) => {
     try {
-      console.log("Form Data:", values);
+
 
       const updatedUser = await addVendorProfile(values);
       // Show success toast

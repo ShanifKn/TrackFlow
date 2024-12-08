@@ -81,12 +81,11 @@ const VendorList = () => {
     const fetchUsers = async () => {
       try {
         const response = await GetVendorProfileList("");
-        console.log(response.data);
+  
         // setVendors(response.data); // Assuming the response contains the list of users
         setData(response.data); // Assuming the response contains the list of users
       } catch (err) {
         setError("Error fetching users");
-        console.log("Error fetching users:", err);
       } finally {
         setLoading(false);
       }

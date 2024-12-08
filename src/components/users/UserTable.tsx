@@ -34,7 +34,7 @@ const frameworks = [
 
 const UserTable: React.FC<UserTableProps> = ({ data }) => {
   const router = useRouter(); // Initialize useRouter
-  console.log("data", data);
+
   const [search, setSearch] = useState("");
   const [selectedBranch, setSelectedBranch] = useState<string | null>(
     "All Branches"

@@ -32,7 +32,6 @@ async function getRequestConfigs(req: any, token: any) {
     }
   }
 
-
   let url = DOMAIN_URL + mappedUrl + (req.params ? "/" + req.params : "") + (req.id ? `/${req.id}` : "") + queryString;
 
   // Retrieve token from Redux store
@@ -90,8 +89,6 @@ export async function POST(request: any) {
   const req = await request.json();
 
   const { url, method, data, authCookie } = await getRequestConfigs(req, cookieHeader);
-console.log(method,data,authCookie)
-console.log("url",url)
 
   switch (method) {
     case "GET":
@@ -106,11 +103,9 @@ console.log("url",url)
 
     case "POST":
       try {
-        console.log("Post", method)
         const response = await axiosInstance.post(url, data, {
           headers: { [`x-auth-token`]: authCookie },
         });
-console.log("response",response)
         return NextResponse.json({ data: response.data });
       } catch (error: any) {
         return handleError(error, NextResponse);

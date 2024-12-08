@@ -108,7 +108,6 @@ const EditVendor = ({ id }: any) => {
 
   const onSubmit = async (values: typeof initialValues) => {
     try {
-      console.log("Form Data:", values);
 
       const updatedUser = await updateVendorProfile(values);
       // Show success toast
