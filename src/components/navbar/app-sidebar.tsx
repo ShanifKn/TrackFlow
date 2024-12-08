@@ -1,6 +1,6 @@
 "use client";
 
-import { BellDot, ChartCandlestick, ClipboardPlus, Combine, DatabaseZap, Dessert, House, LogOut, NotebookTabs, ScanBarcode, ShieldCheck, ShoppingBag, ShoppingBasket, Signature, SquareChartGantt, Users } from "lucide-react";
+import { BellDot, ChartCandlestick, ClipboardPlus, Cog, Combine, DatabaseZap, Dessert, House, LogOut, NotebookTabs, ScanBarcode, ShieldCheck, ShoppingBag, ShoppingBasket, Signature, SquareChartGantt, Users } from "lucide-react";
 import Link from "next/link";
 import React, { useState } from "react";
 import { useSidebar } from "./SidebarContext";
@@ -15,8 +15,8 @@ const sidebarItems = [
   { title: "Reports", url: "/report", icon: <ClipboardPlus /> },
 
   {
-    title: "Catalogue",
-    icon: <DatabaseZap />,
+    title: "Settings",
+    icon: <Cog />,
     subItems: [
       { title: "Vendor", url: "/vendors", icon: <Dessert /> },
       { title: "Products", url: "/products", icon: <ScanBarcode /> },
@@ -24,18 +24,18 @@ const sidebarItems = [
     ],
   },
 
-  {
-    title: "Version 2",
-    icon: <ShieldCheck />,
-    subItems: [
-      { title: "HR Dept", url: "/hr", icon: <ShieldCheck /> },
-      { title: "Purchase", url: "/purchase", icon: <ShoppingBag /> },
-      { title: "Accounts", url: "/accounts", icon: <NotebookTabs /> },
-    ],
-  },
+  // {
+  //   title: "Version 2",
+  //   icon: <ShieldCheck />,
+  //   subItems: [
+  //     { title: "HR Dept", url: "/hr", icon: <ShieldCheck /> },
+  //     { title: "Purchase", url: "/purchase", icon: <ShoppingBag /> },
+  //     { title: "Accounts", url: "/accounts", icon: <NotebookTabs /> },
+  //   ],
+  // },
 
-  { title: "Notifications", url: "#", icon: <BellDot />, badge: 5 },
-  { title: "Approvals", url: "#", icon: <Signature />, badge: 15 },
+  // { title: "Notifications", url: "#", icon: <BellDot />, badge: 5 },
+  // { title: "Approvals", url: "#", icon: <Signature />, badge: 15 },
 ];
 
 const Sidebar = () => {
@@ -72,7 +72,7 @@ const Sidebar = () => {
                 {!isCompact && (
                   <>
                     <span className="text-base font-medium tracking-normal">{item.title}</span>
-                    {item.badge && <span className="ml-3 mr-6 text-sm bg-red-100 rounded-full px-3 py-px text-red-500">{item.badge}</span>}
+                    {/* {item.badge && <span className="ml-3 mr-6 text-sm bg-red-100 rounded-full px-3 py-px text-red-500">{item.badge}</span>} */}
                   </>
                 )}
               </Link>

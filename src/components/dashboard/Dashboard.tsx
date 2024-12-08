@@ -1,7 +1,22 @@
+"use client";
+
+import { CheckApi } from "@/app/api/services/user.service";
 import { FolderGit, HandCoins, Split } from "lucide-react";
-import React from "react";
+import React, { useEffect } from "react";
 
 const Dashboard = () => {
+  const apitest = async () => {
+    try {
+      const res = await CheckApi();
+
+      console.log("hhahha", res);
+    } catch (error) {}
+  };
+
+  useEffect(() => {
+    apitest();
+  }, []);
+
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 p-6 ">
       <div className="p-6 rounded-lg shadow-md flex items-center justify-between border-b-8 border-teal-100 ">
