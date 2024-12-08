@@ -59,7 +59,7 @@ export const UserBanner = () => {
           </Button>
         </div>
 
-        <div className=" rounded-md bg-white flex flex-col justify-center text-black items-center gap-2 py-5">
+        {/* <div className=" rounded-md bg-white flex flex-col justify-center text-black items-center gap-2 py-5">
           <div className="bg-red-400 text-white rounded-md h-14 w-12 flex items-center justify-center ">
             <Split size={30} />
           </div>
@@ -69,7 +69,7 @@ export const UserBanner = () => {
             onClick={() => router.push("/roles")}>
             Add role
           </Button>
-        </div>
+        </div> */}
       </div>
     </div>
   );
