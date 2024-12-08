@@ -23,7 +23,6 @@ export function RouteGuard({ children }: { children: React.ReactNode }) {
     // Check if the path starts with any public path
     const isPathPublic = publicPaths.some((publicPath) => path.startsWith(publicPath));
 
-    console.log("isPathPublic", isPathPublic);
 
     if (isPathPublic || isUserAuthenticated) {
       setHasRouteAccess(true);
