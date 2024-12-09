@@ -5,6 +5,7 @@ import { SidebarProvider } from "@/components/navbar/SidebarContext";
 import { Toaster } from "@/components/ui/toaster";
 import { RouteGuard } from "@/core/routes/routeGuard";
 import { Providers } from "@/core/store/redux/provider";
+import { ToastContainer } from "react-toastify";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,10 +24,11 @@ export default function RootLayout({
       <body className={`${inter.className} antialiased`}>
         <Providers>
           {/* <RouteGuard> */}
-            <SidebarProvider>
-              <Toaster />
-              {children}
-            </SidebarProvider>
+          <SidebarProvider>
+            <Toaster />
+            <ToastContainer />
+            {children}
+          </SidebarProvider>
           {/* </RouteGuard> */}
         </Providers>
       </body>

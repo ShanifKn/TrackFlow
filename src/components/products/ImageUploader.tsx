@@ -1,28 +1,55 @@
-import React, { useState } from "react";
+import { UploadImage } from "@/app/api/services/product.service";
+import { useState, useEffect } from "react";
 
-const ImageUploader = () => {
-  const [images, setImages] = useState<string[]>([]); // Array to store multiple image URLs
-  const [mainImage, setMainImage] = useState<string | null>(null); // Store the main image
+interface EditAssetsProps {
+  values: any; // Formik values (initial values for the form)
+  setFieldValue: (field: string, value: any) => void; // Function to update Formik's field value
+}
 
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
+const ImageUploader: React.FC<EditAssetsProps> = ({ values, setFieldValue }) => {
+  const [images, setImages] = useState<string[]>([]); // Initialize images state with Formik values
+  const [mainImage, setMainImage] = useState<string | null>(images[0] || null); // Initialize the main image
+
+  // Effect to update the main image if images array is changed
+  useEffect(() => {
+    if (values?.imageUrls) {
+      setImages(values.imageUrls);
+    }
+  }, [values]);
+
+  const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
     const file = e.target.files?.[0];
     if (file) {
-      const imageUrl = URL.createObjectURL(file);
-      setImages((prevImages) => {
-        const newImages = [...prevImages];
-        newImages[index] = imageUrl; // Replace the image at the specific index
-        return newImages;
-      });
+      const url = await ImageUpload(file);
 
-      // Set the first image as the main image if it's the first uploaded image
+      const newImages = [...images];
+
+      newImages[index] = url;
+
+      setImages(newImages);
+
+      setFieldValue("imageUrls", newImages);
+
       if (index === 0 && !mainImage) {
-        setMainImage(imageUrl);
+        setMainImage(url);
       }
     }
   };
 
+  const ImageUpload = async (file: any) => {
+    const formData = new FormData();
+
+    formData.append("image", file);
+
+    const data = await UploadImage(formData);
+
+    console.log(data);
+
+    return data.url;
+  };
+
   const handleThumbnailClick = (imageUrl: string) => {
-    setMainImage(imageUrl); // Change the main image on thumbnail click
+    setMainImage(imageUrl); // Change the main image when a thumbnail is clicked
   };
 
   const renderImageInput = (index: number) => (
@@ -49,7 +76,7 @@ const ImageUploader = () => {
         </div>
 
         {/* Thumbnails on the right */}
-        <div className="flex  gap-4">
+        <div className="flex gap-4">
           {Array.from({ length: 3 }).map((_, index) => (
             <div
               key={index}

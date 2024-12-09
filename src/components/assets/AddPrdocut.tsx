@@ -60,7 +60,7 @@ const AddPrdocut: React.FC<EditAssetsProps> = ({ values, setFieldValue }) => {
 
   return (
     <div className="my-5 bg-white p-6 rounded-md">
-      <div className="">
+      {/* <div className="">
         <div className="flex justify-between items-center">
           <h1 className="font-semibold text-black text-xl tracking-wide">Product Details</h1>
 
@@ -160,7 +160,7 @@ const AddPrdocut: React.FC<EditAssetsProps> = ({ values, setFieldValue }) => {
             />
           </div>
         </div>
-      </div>
+      </div> */}
 
       <div className="mt-7 flex flex-col gap-5">
         <h1 className="font-semibold text-black text-xl tracking-wide">Goods Receipt Note (GRN)</h1>
@@ -306,7 +306,7 @@ const AddPrdocut: React.FC<EditAssetsProps> = ({ values, setFieldValue }) => {
 
         <div className="flex gap-3">
           <div className="grid w-full items-center gap-2">
-            <Label htmlFor="arn_no">Asset Reference Number (ARN)</Label>
+            <Label htmlFor="arn_no">Asset Recipt Number (ARN)</Label>
 
             <Field
               name="arn_no"
@@ -352,13 +352,11 @@ const AddPrdocut: React.FC<EditAssetsProps> = ({ values, setFieldValue }) => {
           </div>
 
           <div className="grid w-full items-center gap-2">
-            <Label htmlFor="purchase_no">
-              Asset ID <span className="text-gray-400 font-semibold">(duplicate)</span>
-            </Label>
+            <Label htmlFor="systemEntryNumber">System Entry Number</Label>
             <Input
               type="text"
-              id="purchase_no"
-              placeholder="asset id"
+              id="systemEntryNumber"
+              placeholder="G12312"
               className="h-12"
             />
           </div>
@@ -403,7 +401,7 @@ const AddPrdocut: React.FC<EditAssetsProps> = ({ values, setFieldValue }) => {
           </div>
 
           <div className="grid w-full items-center gap-2">
-            <Label htmlFor="condition">Condition on (31-08-2021)</Label>
+            <Label htmlFor="condition">Condition on (xx-xxx-xxxx)</Label>
 
             <Field
               type="text"

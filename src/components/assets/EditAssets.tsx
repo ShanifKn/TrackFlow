@@ -15,6 +15,7 @@ import { Textarea } from "../ui/textarea";
 import { useRouter } from "next/navigation";
 import { InitialValues } from "@/core/interfaces/data/asset.interface";
 import { ErrorMessage, Field } from "formik";
+import { Checkbox } from "@/components/ui/checkbox";
 
 const productCategories = {
   coCodes: [
@@ -346,7 +347,7 @@ const EditAssets: React.FC<EditAssetsProps> = ({ values, setFieldValue }) => {
                     <ChevronsUpDown className="opacity-50" />
                   </Button>
                 </PopoverTrigger>
-                <PopoverContent className="w-72 p-0">
+                <PopoverContent className="w-96 p-0">
                   <Command>
                     <CommandInput
                       placeholder="Search category..."
@@ -389,8 +390,27 @@ const EditAssets: React.FC<EditAssetsProps> = ({ values, setFieldValue }) => {
               />
             </div>
 
+            <div className="grid w-96 items-center gap-2">
+              <Label htmlFor="depreciationRate">Depreciation Rate</Label>
+              <Input
+                type="text"
+                id="depreciationRate"
+                placeholder="%"
+                className="h-12"
+              />
+            </div>
+
+            <div className="flex items-center space-x-2 w-full mt-4">
+              <Checkbox id="terms2" />
+              <label
+                htmlFor="terms2"
+                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                Change Depreciation Rate
+              </label>
+            </div>
+
             {/* Audit Category Dropdown */}
-            <div className="grid w-full items-center gap-2">
+            {/* <div className="grid w-full items-center gap-2">
               <Label htmlFor="audit_category">Audit Category</Label>
               <Popover>
                 <PopoverTrigger asChild>
@@ -444,7 +464,7 @@ const EditAssets: React.FC<EditAssetsProps> = ({ values, setFieldValue }) => {
                 component="p"
                 className="text-red-500 text-sm"
               />
-            </div>
+            </div> */}
           </div>
         </div>
 
@@ -596,6 +616,16 @@ const EditAssets: React.FC<EditAssetsProps> = ({ values, setFieldValue }) => {
                 className="text-red-500 text-sm"
               />
             </div>
+          </div>
+
+          <div className="grid w-full items-center gap-2">
+            <Label htmlFor="purchase_no">Specification</Label>
+            <Input
+              type="text"
+              id="purchase_no"
+              placeholder="Color / Size / Brand"
+              className="h-12"
+            />
           </div>
 
           {/* Description */}

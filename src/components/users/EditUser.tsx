@@ -8,24 +8,9 @@ import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from "@/components/ui/command";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import {
-  addUserProfile,
-  GetOneUserProfile,
-  updateUserProfile,
-} from "@/app/api/services/user.service";
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { addUserProfile, GetOneUserProfile, updateUserProfile } from "@/app/api/services/user.service";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
 
@@ -40,18 +25,13 @@ const frameworks = [
 const roles = [
   { label: "Admin", value: "admin" },
   { label: "Manager", value: "manager" },
-  { label: "Asset", value: "Inventory" },
+  { label: "Finance", value: "Inventory" },
   { label: "Inventory", value: "Asset" },
-  { label: "Staff", value: "staff" },
 ];
 
 const validationSchema = Yup.object().shape({
-  email: Yup.string()
-    .email("Invalid email format")
-    .required("Email is required."),
-  password: Yup.string()
-    .min(6, "Password must be at least 6 characters")
-    .required("Password is required."),
+  email: Yup.string().email("Invalid email format").required("Email is required."),
+  password: Yup.string().min(6, "Password must be at least 6 characters").required("Password is required."),
   branch: Yup.string().required("Branch is required."),
   role: Yup.string().required("Role is required."),
   firstName: Yup.string().required("First Name is required."),
@@ -94,28 +74,20 @@ const EditUser = ({ id }: any) => {
   }, [id]); // Re-fetch if the `id` changes
 
   const getUserDetails = async () => {
-
     const user = await GetOneUserProfile(id);
     setInitialValues(user.data);
-
   };
 
   const onSubmit = async (values: typeof initialValues) => {
-    try {
-      const updatedUser = await updateUserProfile(values);
-      console.log("Form Data:", updatedUser);
-      // Redirect to the '/users' route after a successful operation
-      // router.push("/users");
-      // Show success toast
+    const updatedUser = await updateUserProfile(values);
+
+    if (updatedUser.message) {
       toast({
         title: "Success",
         description: "User profile updated successfully!",
         duration: 5000, // Toast duration
       });
-      // Redirect to the '/users' route after a successful operation
       router.push("/users");
-    } catch (error) {
-      console.log("Error updating profile:", error);
     }
   };
 
@@ -124,15 +96,12 @@ const EditUser = ({ id }: any) => {
       enableReinitialize={true}
       initialValues={initialValues}
       validationSchema={validationSchema}
-      onSubmit={onSubmit}
-    >
+      onSubmit={onSubmit}>
       {({ values, setFieldValue }) => (
         <Form className="my-10 grid grid-cols-3 gap-4">
           {/* Profile Section */}
           <div className="col-span-1 bg-white p-6 rounded h-full flex flex-col gap-4">
-            <h1 className="font-semibold text-black text-xl tracking-wide">
-              Profile
-            </h1>
+            <h1 className="font-semibold text-black text-xl tracking-wide">Profile</h1>
 
             <div className="flex gap-4">
               <div className="bg-[#006666] text-white rounded-full h-16 w-16 flex items-center justify-center">
@@ -143,9 +112,7 @@ const EditUser = ({ id }: any) => {
                 <h1 className="text-black font-normal text-lg uppercase">
                   {initialValues.firstName} {initialValues.lastName}
                 </h1>
-                <span className="text-black text-base">
-                  {initialValues.role}
-                </span>
+                <span className="text-black text-base">{initialValues.role}</span>
               </div>
             </div>
 
@@ -199,9 +166,49 @@ const EditUser = ({ id }: any) => {
           {/* Edit Profile Section */}
           <div className="col-span-2 bg-white p-6 rounded flex flex-col gap-6 justify-between">
             <div className="flex flex-col gap-6">
-              <h1 className="font-semibold text-black text-xl tracking-wide">
-                Edit Profile
-              </h1>
+              <h1 className="font-semibold text-black text-xl tracking-wide">Edit Profile</h1>
+
+              <div className="grid w-full gap-2 mt-3">
+                <Label htmlFor="branch">Company</Label>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <Button
+                      variant="outline"
+                      role="combobox"
+                      className="w-full justify-between h-10">
+                      {values.branch ? frameworks.find((f) => f.value === values.branch)?.label : "Select company..."}
+                      <ChevronsUpDown className="opacity-50" />
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-96 p-0">
+                    <Command>
+                      <CommandInput
+                        placeholder="Search company..."
+                        className="h-9"
+                      />
+                      <CommandList>
+                        <CommandEmpty>No branch found.</CommandEmpty>
+                        <CommandGroup>
+                          {frameworks.map((framework) => (
+                            <CommandItem
+                              key={framework.value}
+                              value={framework.value}
+                              onSelect={() => setFieldValue("branch", framework.value)}>
+                              {framework.label}
+                              <Check className={`ml-auto ${values.branch === framework.value ? "opacity-100" : "opacity-0"}`} />
+                            </CommandItem>
+                          ))}
+                        </CommandGroup>
+                      </CommandList>
+                    </Command>
+                  </PopoverContent>
+                </Popover>
+                <ErrorMessage
+                  name="branch"
+                  component="p"
+                  className="text-red-500 text-sm"
+                />
+              </div>
 
               <div className="flex gap-4">
                 {/* Branch Selection */}
@@ -212,12 +219,8 @@ const EditUser = ({ id }: any) => {
                       <Button
                         variant="outline"
                         role="combobox"
-                        className="w-full justify-between h-10"
-                      >
-                        {values.branch
-                          ? frameworks.find((f) => f.value === values.branch)
-                              ?.label
-                          : "Select Branch..."}
+                        className="w-full justify-between h-10">
+                        {values.branch ? frameworks.find((f) => f.value === values.branch)?.label : "Select Branch..."}
                         <ChevronsUpDown className="opacity-50" />
                       </Button>
                     </PopoverTrigger>
@@ -234,18 +237,9 @@ const EditUser = ({ id }: any) => {
                               <CommandItem
                                 key={framework.value}
                                 value={framework.value}
-                                onSelect={() =>
-                                  setFieldValue("branch", framework.value)
-                                }
-                              >
+                                onSelect={() => setFieldValue("branch", framework.value)}>
                                 {framework.label}
-                                <Check
-                                  className={`ml-auto ${
-                                    values.branch === framework.value
-                                      ? "opacity-100"
-                                      : "opacity-0"
-                                  }`}
-                                />
+                                <Check className={`ml-auto ${values.branch === framework.value ? "opacity-100" : "opacity-0"}`} />
                               </CommandItem>
                             ))}
                           </CommandGroup>
@@ -268,11 +262,8 @@ const EditUser = ({ id }: any) => {
                       <Button
                         variant="outline"
                         role="combobox"
-                        className="w-full justify-between h-10"
-                      >
-                        {values.role
-                          ? roles.find((r) => r.value === values.role)?.label
-                          : "Select Role..."}
+                        className="w-full justify-between h-10">
+                        {values.role ? roles.find((r) => r.value === values.role)?.label : "Select Role..."}
                         <ChevronsUpDown className="opacity-50" />
                       </Button>
                     </PopoverTrigger>
@@ -289,18 +280,9 @@ const EditUser = ({ id }: any) => {
                               <CommandItem
                                 key={role.value}
                                 value={role.value}
-                                onSelect={() =>
-                                  setFieldValue("role", role.value)
-                                }
-                              >
+                                onSelect={() => setFieldValue("role", role.value)}>
                                 {role.label}
-                                <Check
-                                  className={`ml-auto ${
-                                    values.role === role.value
-                                      ? "opacity-100"
-                                      : "opacity-0"
-                                  }`}
-                                />
+                                <Check className={`ml-auto ${values.role === role.value ? "opacity-100" : "opacity-0"}`} />
                               </CommandItem>
                             ))}
                           </CommandGroup>
@@ -355,8 +337,7 @@ const EditUser = ({ id }: any) => {
             <div className="flex justify-end my-5">
               <Button
                 type="submit"
-                className="text-white bg-[#006666] hover:bg-emerald-800"
-              >
+                className="text-white bg-[#006666] hover:bg-emerald-800">
                 Edit User
               </Button>
             </div>

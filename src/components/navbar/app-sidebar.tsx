@@ -1,6 +1,6 @@
 "use client";
 
-import { BellDot, ChartCandlestick, ClipboardPlus, Cog, Combine, DatabaseZap, Dessert, House, LogOut, NotebookTabs, ScanBarcode, ShieldCheck, ShoppingBag, ShoppingBasket, Signature, SquareChartGantt, Users } from "lucide-react";
+import { BellDot, ChartCandlestick, ClipboardPlus, Cog, Combine, DatabaseZap, Dessert, House, LogOut, NotebookTabs, Ruler, ScanBarcode, ShieldCheck, ShoppingBag, ShoppingBasket, Signature, SquareChartGantt, Users } from "lucide-react";
 import Link from "next/link";
 import React, { useState } from "react";
 import { useSidebar } from "./SidebarContext";
@@ -12,6 +12,7 @@ const sidebarItems = [
 
   { title: "Assets", url: "/assets", icon: <SquareChartGantt /> },
   { title: "Inventory", url: "/inventory", icon: <ChartCandlestick /> },
+  { title: "Depreciation", url: "/depreciation", icon: <Ruler /> },
   { title: "Reports", url: "/report", icon: <ClipboardPlus /> },
 
   {

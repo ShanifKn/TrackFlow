@@ -9,19 +9,8 @@ import { Check, ChevronsUpDown, UserPen } from "lucide-react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { cn } from "@/lib/utils";
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from "@/components/ui/command";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import UploadDocument from "./UploadDocument";
 import { Textarea } from "../ui/textarea";
 import { addVendorProfile } from "@/app/api/services/vendor.service";
@@ -44,9 +33,7 @@ const service: any[] = [
 const validationSchema = Yup.object().shape({
   name: Yup.string().required("Business Name is required."),
   contact_name: Yup.string().required("Contact Name is required."),
-  email: Yup.string()
-    .email("Invalid email format")
-    .required("Email is required."),
+  email: Yup.string().email("Invalid email format").required("Email is required."),
   phone: Yup.string().required("Phone number is required."),
   license_no: Yup.string().required("Trade License Number is required."),
   authority: Yup.string().required("Issuing Authority is required."),
@@ -60,9 +47,6 @@ const validationSchema = Yup.object().shape({
 const AddVendor = () => {
   const [open, setOpen] = useState(false);
   const [serviceOpen, setserviceOpen] = useState(false);
-
-  const [category, setCategory] = useState("");
-  const [serviceType, setServiceType] = useState("");
   const { toast } = useToast();
   const router = useRouter(); // Initialize the router
 
@@ -81,11 +65,9 @@ const AddVendor = () => {
   };
 
   const onSubmit = async (values: typeof initialValues) => {
-    try {
+    const updatedUser = await addVendorProfile(values);
 
-
-      const updatedUser = await addVendorProfile(values);
-      // Show success toast
+    if (updatedUser.message) {
       toast({
         title: "Success",
         description: "Vendor profile added successfully!",
@@ -93,8 +75,6 @@ const AddVendor = () => {
       });
       // Redirect to the '/users' route after a successful operation
       router.push("/vendors");
-    } catch (error) {
-      console.log("Error updating profile:", error);
     }
   };
 
@@ -102,23 +82,18 @@ const AddVendor = () => {
     <Formik
       initialValues={initialValues}
       validationSchema={validationSchema}
-      onSubmit={onSubmit}
-    >
+      onSubmit={onSubmit}>
       {({ values, setFieldValue }) => (
         <Form className="my-10 grid grid-cols-3 gap-4">
           {/* Vendor Profile Section */}
           <div className="col-span-1 bg-white p-6 rounded h-full flex flex-col gap-4">
-            <h1 className="font-semibold text-black text-xl tracking-wide">
-              Vendor Profile
-            </h1>
+            <h1 className="font-semibold text-black text-xl tracking-wide">Vendor Profile</h1>
             <div className="flex gap-4">
               <div className="bg-[#006666] text-white rounded-full h-16 w-16 flex items-center justify-center">
                 <UserRound />
               </div>
               <div className="flex flex-col ">
-                <h1 className="text-black font-normal text-lg uppercase">
-                  Business Name
-                </h1>
+                <h1 className="text-black font-normal text-lg uppercase">Business Name</h1>
                 <span className="text-black text-base">Purchase</span>
               </div>
             </div>
@@ -191,9 +166,7 @@ const AddVendor = () => {
           {/* Profile Details Section */}
           <div className="col-span-2 bg-white p-6 rounded flex flex-col gap-6 justify-between">
             <div className="flex flex-col gap-6">
-              <h1 className="font-semibold text-black text-xl tracking-wide">
-                Profile Details
-              </h1>
+              <h1 className="font-semibold text-black text-xl tracking-wide">Profile Details</h1>
 
               <div className="flex gap-4">
                 <div className="grid w-full items-center gap-2">
@@ -267,17 +240,15 @@ const AddVendor = () => {
                 {/* Product Category */}
                 <div className="grid w-full gap-2">
                   <Label htmlFor="category">Product Category</Label>
-                  <Popover open={open} onOpenChange={setOpen}>
+                  <Popover
+                    open={open}
+                    onOpenChange={setOpen}>
                     <PopoverTrigger asChild>
                       <Button
                         variant="outline"
                         role="combobox"
-                        className="w-full justify-between h-10"
-                      >
-                        {values.category
-                          ? frameworks.find((f) => f.value === values.category)
-                              ?.label
-                          : "Select Category..."}
+                        className="w-full justify-between h-10">
+                        {values.category ? frameworks.find((f) => f.value === values.category)?.label : "Select Category..."}
                         <ChevronsUpDown className="opacity-50" />
                       </Button>
                     </PopoverTrigger>
@@ -297,16 +268,9 @@ const AddVendor = () => {
                                 onSelect={(value) => {
                                   setFieldValue("category", value);
                                   setOpen(false);
-                                }}
-                              >
+                                }}>
                                 {framework.label}
-                                <Check
-                                  className={`ml-auto ${
-                                    values.category === framework.value
-                                      ? "opacity-100"
-                                      : "opacity-0"
-                                  }`}
-                                />
+                                <Check className={`ml-auto ${values.category === framework.value ? "opacity-100" : "opacity-0"}`} />
                               </CommandItem>
                             ))}
                           </CommandGroup>
@@ -324,17 +288,15 @@ const AddVendor = () => {
                 {/* Service Type */}
                 <div className="grid w-full gap-2">
                   <Label htmlFor="service_type">Service Type</Label>
-                  <Popover open={serviceOpen} onOpenChange={setserviceOpen}>
+                  <Popover
+                    open={serviceOpen}
+                    onOpenChange={setserviceOpen}>
                     <PopoverTrigger asChild>
                       <Button
                         variant="outline"
                         role="combobox"
-                        className="w-full justify-between h-10"
-                      >
-                        {values.service_type
-                          ? service.find((s) => s.value === values.service_type)
-                              ?.label
-                          : "Select Service Type..."}
+                        className="w-full justify-between h-10">
+                        {values.service_type ? service.find((s) => s.value === values.service_type)?.label : "Select Service Type..."}
                         <ChevronsUpDown className="opacity-50" />
                       </Button>
                     </PopoverTrigger>
@@ -354,16 +316,9 @@ const AddVendor = () => {
                                 onSelect={(value) => {
                                   setFieldValue("service_type", value);
                                   setserviceOpen(false);
-                                }}
-                              >
+                                }}>
                                 {serviceItem.label}
-                                <Check
-                                  className={`ml-auto ${
-                                    values.service_type === serviceItem.value
-                                      ? "opacity-100"
-                                      : "opacity-0"
-                                  }`}
-                                />
+                                <Check className={`ml-auto ${values.service_type === serviceItem.value ? "opacity-100" : "opacity-0"}`} />
                               </CommandItem>
                             ))}
                           </CommandGroup>
@@ -396,8 +351,7 @@ const AddVendor = () => {
               <div className="flex justify-end my-5">
                 <Button
                   type="submit"
-                  className="bg-[#006666] text-white hover:bg-emerald-800"
-                >
+                  className="bg-[#006666] text-white hover:bg-emerald-800">
                   Create Vendor
                 </Button>
               </div>

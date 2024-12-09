@@ -1,5 +1,6 @@
 "use client";
 
+import InventoryDetails from "@/components/inventory/InventoryDetails";
 import InventoryInvoice from "@/components/inventory/InventoryInvoice";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
@@ -21,7 +22,9 @@ const Page = () => {
         </Button>
       </div>
 
-      <InventoryInvoice />
+      {/* <InventoryInvoice /> */}
+
+      <InventoryDetails />
     </>
   );
 };

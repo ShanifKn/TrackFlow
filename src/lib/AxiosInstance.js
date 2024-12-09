@@ -5,7 +5,7 @@ import { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from "ax
 
 const axiosInstance = axios.create({
   baseURL: DOMAIN_URL,
-  headers: { Accept: "application/json", "Content-Type": "application/json" },
+  headers: { Accept: "application/json", "Content-Type": "multipart/form-data" },
 });
 
 axiosInstance.interceptors.response.use(

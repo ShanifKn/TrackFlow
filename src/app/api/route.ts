@@ -79,6 +79,8 @@ async function formulateValidationErrors(errors: ValidationError[]) {
     });
   });
 
+  console.log(validationErrors);
+
   return validationErrors;
 }
 

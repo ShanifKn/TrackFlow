@@ -6,82 +6,114 @@ import { Label } from "@/components/ui/label"; // Replace with your Label compon
 import { Trash2 } from "lucide-react";
 
 const UploadDocument = () => {
-  const [documents, setDocuments] = useState<File[]>([]); // State to hold uploaded documents
-  const [previewURLs, setPreviewURLs] = useState<string[]>([]); // State for document preview URLs
+  // State for different categories of uploads
+  const [documents, setDocuments] = useState({
+    receipt: { files: [] as File[], previewURLs: [] as string[], mandatory: true },
+    purchaseOrder: { files: [] as File[], previewURLs: [] as string[], mandatory: false },
+    assetPhoto: { files: [] as File[], previewURLs: [] as string[], mandatory: true },
+    invoice: { files: [] as File[], previewURLs: [] as string[], mandatory: true },
+  });
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  // Handle file changes for a specific category
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>, category: keyof typeof documents) => {
     const files = e.target.files;
     if (!files) return;
 
-    const fileArray = Array.from(files); // Convert FileList to an array
-    setDocuments((prevDocs) => [...prevDocs, ...fileArray]);
+    const fileArray = Array.from(files);
+    setDocuments((prevDocs) => {
+      const updatedCategory = {
+        files: [...prevDocs[category].files, ...fileArray],
+        previewURLs: [...prevDocs[category].previewURLs, ...fileArray.map((file) => URL.createObjectURL(file))],
+        mandatory: prevDocs[category].mandatory,
+      };
 
-    // Generate preview URLs for supported document types
-    const urls = fileArray.map((file) => URL.createObjectURL(file));
-    setPreviewURLs((prevURLs) => [...prevURLs, ...urls]);
+      return { ...prevDocs, [category]: updatedCategory };
+    });
   };
 
-  const handleRemoveDocument = (index: number) => {
-    setDocuments((prevDocs) => prevDocs.filter((_, i) => i !== index));
-    setPreviewURLs((prevURLs) => prevURLs.filter((_, i) => i !== index));
+  // Handle removing a document for a specific category
+  const handleRemoveDocument = (index: number, category: keyof typeof documents) => {
+    setDocuments((prevDocs) => {
+      const updatedCategory = {
+        ...prevDocs[category],
+        files: prevDocs[category].files.filter((_, i) => i !== index),
+        previewURLs: prevDocs[category].previewURLs.filter((_, i) => i !== index),
+      };
+
+      return { ...prevDocs, [category]: updatedCategory };
+    });
   };
 
   return (
     <div className="mt-2 flex flex-col gap-6">
       <h1 className="font-semibold text-black text-lg tracking-wide">Supporting Documents Upload</h1>
 
-      {/* Upload Section */}
-      <div className="grid w-full gap-2">
-        <Label htmlFor="document-upload">Upload Documents</Label>
-        <Input
-          type="file"
-          id="document-upload"
-          className=" w-[500px]"
-          onChange={handleFileChange}
-          multiple // Allow multiple file uploads
-        />
-      </div>
+      <div className="grid grid-cols-2">
+        {/* Loop through categories */}
+        {Object.entries(documents).map(([category, data]) => (
+          <div
+            key={category}
+            className="mb-6">
+            <h2 className="font-bold text-md mb-5 capitalize">
+              {category.replace(/([A-Z])/g, " $1")} {data.mandatory && <span className="text-red-500">*</span>}
+            </h2>
 
-      {/* Uploaded Documents */}
-      {documents.length > 0 && (
-        <section className="mt-4">
-          <h2 className="text-lg font-bold mb-4">Uploaded Documents</h2>
-          <ul className="flex flex-wrap gap-4">
-            {documents.map((document, index) => (
-              <li
-                key={index}
-                className="flex items-center justify-between p-4 bg-white drop-shadow-lg rounded-lg w-fit gap-10">
-                <div className=" text-sm font-medium">{document.name}</div>
-                <div className="flex  gap-2  w-full items-center justify-end">
-                  <div className="flex justify-between gap-2">
-                    <a
-                      href={previewURLs[index]}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-blue-500 hover:underline text-sm">
-                      View
-                    </a>
-                    <a
-                      href={previewURLs[index]}
-                      download
-                      className="text-green-500 hover:underline text-sm">
-                      Download
-                    </a>
-                  </div>
-                  {/* Remove Button */}
-                  <Button
-                    variant="outline"
-                    size="icon"
-                    className=" text-red-600"
-                    onClick={() => handleRemoveDocument(index)}>
-                    <Trash2 />
-                  </Button>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
+            {/* Conditionally render the input based on uploaded files */}
+            {data.files.length === 0 && (
+              <div className="grid w-full gap-2">
+                <Label htmlFor={`${category}-upload`}>Upload {category.replace(/([A-Z])/g, " $1")}</Label>
+                <Input
+                  type="file"
+                  id={`${category}-upload`}
+                  className="w-[500px]"
+                  onChange={(e) => handleFileChange(e, category as keyof typeof documents)}
+                  multiple
+                />
+              </div>
+            )}
+
+            {/* Display uploaded documents */}
+            {data.files.length > 0 && (
+              <section className="mt-4">
+                <ul className="flex flex-wrap gap-4">
+                  {data.files.map((file, index) => (
+                    <li
+                      key={index}
+                      className="flex items-center justify-between p-4 bg-white drop-shadow-lg rounded-lg w-fit gap-10">
+                      <div className="text-sm font-medium">{file.name}</div>
+                      <div className="flex gap-2 w-full items-center justify-end">
+                        <div className="flex justify-between gap-2">
+                          <a
+                            href={data.previewURLs[index]}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-500 hover:underline text-sm">
+                            View
+                          </a>
+                          <a
+                            href={data.previewURLs[index]}
+                            download
+                            className="text-green-500 hover:underline text-sm">
+                            Download
+                          </a>
+                        </div>
+                        {/* Remove Button */}
+                        <Button
+                          variant="outline"
+                          size="icon"
+                          className="text-red-600"
+                          onClick={() => handleRemoveDocument(index, category as keyof typeof documents)}>
+                          <Trash2 />
+                        </Button>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            )}
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
