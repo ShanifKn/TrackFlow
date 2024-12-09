@@ -1,5 +1,5 @@
 import { Product } from "@/core/interfaces/data/product.interface";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Check, ChevronsUpDown, UserPen } from "lucide-react";
 
 import { cn } from "@/lib/utils";
@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { useRouter } from "next/navigation";
+import { GetProductProfileList } from "@/app/api/services/product.service";
 
 type ProductTableProps = {
   data: Product[];
@@ -23,22 +24,54 @@ const frameworks = [
 const ProductList: React.FC<ProductTableProps> = ({ data }) => {
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState("");
+  // const [data, setData] = useState([]);
   const [selectedBranch, setSelectedBranch] = useState<string | null>("All Category");
   const [search, setSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
   const rowsPerPage = 10;
 
   const router = useRouter();
 
-  // Filter and search logic
-  const filteredUsers = data.filter((user) => (selectedBranch === "All Category" || user.category.toLowerCase() === selectedBranch?.toLowerCase()) && [user.name, user.category].some((field) => field.toLowerCase().includes(search.toLowerCase())));
+  // useEffect(() => {
+  //   const fetchUsers = async () => {
+  //     try {
+  //       const response = await GetProductProfileList("");
+  //       console.log(response.data);
+  //       // setVendors(response.data); // Assuming the response contains the list of users
+  //       setData(response.data); // Assuming the response contains the list of users
+  //     } catch (err) {
+  //       console.log("Error fetching users:", err);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+
+  //   fetchUsers();
+  // }, []);
+
+  // // Filter and search logic
+  // const filteredUsers = data.filter(
+  //   (user) =>
+  //     (selectedBranch === "All Category" ||
+  //       user.category.toLowerCase() === selectedBranch?.toLowerCase()) &&
+  //     [user.name, user.category].some((field) =>
+  //       field.toLowerCase().includes(search.toLowerCase())
+  //     )
+  // );
 
   // Pagination logic
-  const totalPages = Math.ceil(filteredUsers.length / rowsPerPage);
-  const paginatedUsers = filteredUsers.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage);
+  const totalPages = Math.ceil(data.length / rowsPerPage);
+  const paginatedUsers = data.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage);
+
+  // Handle redirection to user details
+  const handleRedirect = (userId: string) => {
+    router.push(`products/${userId}`); // Redirect to the user details page
+  };
 
   return (
-    <div className="my-10 bg-white p-4 rounded gap-4 h-[80vh]">
+    <div className="my-10 bg-white p-4 rounded gap-4 h-full">
       <div className="flex items-center justify-between mb-4">
         <input
           type="text"
@@ -134,7 +167,7 @@ const ProductList: React.FC<ProductTableProps> = ({ data }) => {
                 </td>
 
                 <td className="px-4 py-2 border border-gray-200">{user.category}</td>
-                <td className="px-4 py-2 border border-gray-200 line-clamp-1">{user.description}</td>
+                <td className="px-4 py-2  line-clamp-1">{user.description}</td>
                 <td className="px-4 py-2 border border-gray-200 text-center">
                   <label className="relative inline-flex items-center cursor-pointer">
                     <input
@@ -148,7 +181,10 @@ const ProductList: React.FC<ProductTableProps> = ({ data }) => {
                 </td>
                 <td className="px-4 py-2 border border-gray-200 text-center">
                   <div className="flex items-center justify-center space-x-2">
-                    <button className="text-teal-600 hover:text-teal-800">
+                    <button
+                      className="text-teal-600 hover:text-teal-800"
+                      onClick={() => handleRedirect(user._id)} // Handle redirection on click
+                    >
                       <UserPen />
                     </button>
                   </div>

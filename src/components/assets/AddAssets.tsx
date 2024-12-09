@@ -39,7 +39,7 @@ const AddAssets = () => {
               setFieldValue={setFieldValue}
             />
 
-            {/* <Depreciation /> */}
+            <Depreciation />
 
             <DocumentUpload />
 

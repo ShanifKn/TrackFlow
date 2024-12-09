@@ -11,6 +11,11 @@ const vendoradd = "/add-vendor";
 const vednorprofile = "/vendor";
 const vendorlist = "/vendor-list";
 
+const updateproducturl = "/product/update";
+const productadd = "/add-product";
+const productprofile = "/product";
+const productlist = "/product-list";
+
 export const ApiRoutes: any = {
   // user api section //
   LOGIN_USER: userlogin,
@@ -27,4 +32,9 @@ export const ApiRoutes: any = {
 
   // asset api section //
   CREATE_ASSET: createAsset,
+
+  UPDATE_PRODUCT_PROFILE :updateproducturl,
+  ADD_PRODUCT_PROFILE :productadd,
+  GET_PRODUCT_PROFILE_LIST:productlist,
+  GET_PRODUCT_PROFILE :productprofile,
 };

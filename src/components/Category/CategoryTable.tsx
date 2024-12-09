@@ -93,7 +93,7 @@ const CategoryTable = () => {
                 className="hover:bg-gray-50">
                 <td className="px-4 py-2 border border-gray-200">{user._id}</td>
                 <td className="px-4 py-2 border border-gray-200 text-black">{user.category}</td>
-                <td className="px-4 py-2 border border-gray-200 line-clamp-1">{user.description}</td>
+                <td className="px-4 py-2  line-clamp-1">{user.description}</td>
                 <td className="px-4 py-2 border border-gray-200">{user.date}</td>
                 <td className="px-4 py-2 border border-gray-200 text-center">
                   <div className="flex items-center justify-center space-x-2">
