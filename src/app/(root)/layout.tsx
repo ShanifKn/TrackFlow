@@ -14,7 +14,7 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
       <Sidebar />
       <div className={`flex-1 flex flex-col ${isCompact ? "ml-[4.5rem]" : "ml-72"}`}>
         <Navbar />
-        <div className="pt-20 px-10">{children}</div>
+        <div className="pt-7 px-7">{children}</div>
       </div>
     </div>
   );
