@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Formik, Field } from "formik";
 import * as yup from "yup";
 import ImageUploader from "./ImageUploader";
@@ -11,7 +11,7 @@ import AddCategory from "./AddCategory";
 import { Textarea } from "../ui/textarea";
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
 import { cn } from "@/lib/utils";
-import { addProductProfile } from "@/app/api/services/product.service";
+import { addProductProfile, GetOneProductProfile, updateProductProfile } from "@/app/api/services/product.service";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
 
@@ -23,15 +23,6 @@ const frameworks = [
   { value: "branch e", label: "Branch E" },
 ];
 
-const initialValues = {
-  name: "",
-  category: "",
-  brand: "",
-  specification: "",
-  description: "",
-  imageUrls: [],
-};
-
 // Define Yup validation schema
 const schema = yup.object({
   name: yup.string().min(3, "Product name must be at least 3 characters long").required("Product name is required"),
@@ -41,34 +32,66 @@ const schema = yup.object({
   description: yup.string().min(10, "Description must be at least 10 characters long").required("Description is required"),
 });
 
-const AddProduct = () => {
+interface EditProductProps {
+  id: any; // Define the type of the 'id' prop
+}
+
+const EditProduct = ({ id }: EditProductProps) => {
   const [open, setOpen] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
-
+  let [initialValues, setInitialValues] = useState({
+    productId: "",
+    name: "",
+    category: "",
+    brand: "",
+    specification: "",
+    description: "",
+    imageUrls: [],
+  });
   const { toast } = useToast();
   const router = useRouter(); // Initialize the router
 
   const handleOpenDialog = () => setDialogOpen(true);
   const handleCloseDialog = () => setDialogOpen(false);
 
+  useEffect(() => {
+    const getUserDetails = async () => {
+      const product = await GetOneProductProfile(id);
+      console.log("user", product.data);
+      setInitialValues({
+        productId: product.data._id || "",
+        name: product.data.name || "",
+        category: product.data.category || "",
+        brand: product.data.brand || "",
+        specification: product.data.specification || "",
+        description: product.data.description || "",
+        imageUrls: product.data.imageUrls || "",
+      });
+    };
+
+    getUserDetails();
+  }, [id]); // Re-fetch if the `id` changes
+
   const onSubmit = async (values: typeof initialValues) => {
-    console.log(values);
+    try {
+      await updateProductProfile(values);
 
-    const createProduct = await await addProductProfile(values);
-
-    if (createProduct.message) {
+      // Show success toast
       toast({
         title: "Success",
         description: "Product profile added successfully!",
         duration: 5000, // Toast duration
       });
-
+      // Redirect to the '/users' route after a successful operation
       router.push("/products");
+    } catch (error) {
+      console.log("Error updating profile:", error);
     }
   };
 
   return (
     <Formik
+      enableReinitialize={true}
       initialValues={initialValues}
       validationSchema={schema}
       onSubmit={onSubmit}>
@@ -236,4 +259,4 @@ const AddProduct = () => {
   );
 };
 
-export default AddProduct;
+export default EditProduct;

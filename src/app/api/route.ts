@@ -34,9 +34,6 @@ async function getRequestConfigs(req: any, token: any) {
 
   let url = DOMAIN_URL + mappedUrl + (req.params ? "/" + req.params : "") + (req.id ? `/${req.id}` : "") + queryString;
 
-  // Retrieve token from Redux store
-  // const { token } = useSelector((state: any) => state.user);
-
   // Set authorization header with token
   const authCookie = token;
 
@@ -44,6 +41,8 @@ async function getRequestConfigs(req: any, token: any) {
 }
 
 async function handleError(error: any, res: any) {
+  console.log(error.status);
+
   if (error?.response?.data?.errors) {
     return res.json(
       {
@@ -80,6 +79,8 @@ async function formulateValidationErrors(errors: ValidationError[]) {
     });
   });
 
+  console.log(validationErrors);
+
   return validationErrors;
 }
 
@@ -103,9 +104,7 @@ export async function POST(request: any) {
 
     case "POST":
       try {
-        const response = await axiosInstance.post(url, data, {
-          headers: { [`x-auth-token`]: authCookie },
-        });
+        const response = await axiosInstance.post(url, data, { headers: { [`x-auth-token`]: authCookie } });
         return NextResponse.json({ data: response.data });
       } catch (error: any) {
         return handleError(error, NextResponse);

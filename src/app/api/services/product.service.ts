@@ -16,9 +16,9 @@ export async function CheckApi() {
   return {} as any;
 }
 
-export async function updateUserProfile(values: any) {
+export async function updateProductProfile(values: any) {
   const apiPayload = {
-    url: ApiRoutesEnum.UPDATE_USER_PROFILE,
+    url: ApiRoutesEnum.UPDATE_PRODUCT_PROFILE,
     method: RequestMethod.PATCH,
     data: values, // Pass the form values or user data to be updated
   };
@@ -38,9 +38,9 @@ export async function updateUserProfile(values: any) {
   return {} as any; // Return empty object if error occurs
 }
 
-export async function addUserProfile(values: any) {
+export async function addProductProfile(values: any) {
   const apiPayload = {
-    url: ApiRoutesEnum.ADD_USER_PROFILE,
+    url: ApiRoutesEnum.ADD_PRODUCT_PROFILE,
     method: RequestMethod.POST,
     data: values, // Pass the form values or user data to be updated
   };
@@ -55,14 +55,13 @@ export async function addUserProfile(values: any) {
   if (data) {
     return data; // Successfully updated
   }
-
   showErrorToast(error); // Display error toast if an error occurred
   return {} as any; // Return empty object if error occurs
 }
 
-export async function GetUserProfileList(values: any) {
+export async function GetProductProfileList(values: any) {
   const apiPayload = {
-    url: ApiRoutesEnum.GET_USER_PROFILE_LIST,
+    url: ApiRoutesEnum.GET_PRODUCT_PROFILE_LIST,
     method: RequestMethod.GET,
     data: values, // Pass the form values or user data to be updated
   };
@@ -82,9 +81,9 @@ export async function GetUserProfileList(values: any) {
   return {} as any; // Return empty object if error occurs
 }
 
-export async function GetOneUserProfile(id: any) {
+export async function GetOneProductProfile(id: any) {
   const apiPayload = {
-    url: ApiRoutesEnum.GET_USER_PROFILE,
+    url: ApiRoutesEnum.GET_PRODUCT_PROFILE,
     method: RequestMethod.GET,
     params: id,
   };
@@ -101,5 +100,22 @@ export async function GetOneUserProfile(id: any) {
   }
 
   showErrorToast(error); // Display error toast if an error occurred
+  return {} as any; // Return empty object if error occurs
+}
+
+export async function UploadImage(file: any) {
+  try {
+    const response = await fetch("http://localhost:8001/image-upload", {
+      method: RequestMethod.POST, // Set the method to POST
+      body: file, // Send the FormData as the body
+    });
+
+    const data = await response.json();
+
+    if (data) return data; // Successfully updated}
+  } catch (error) {
+    console.log(error);
+  }
+
   return {} as any; // Return empty object if error occurs
 }
