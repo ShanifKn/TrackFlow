@@ -14,6 +14,99 @@ type UserTableProps = {
   data: TableData[];
 };
 
+const dummyUsers = [
+  {
+    _id: "1",
+    image: "https://randomuser.me/api/portraits/men/1.jpg",
+    firstName: "John Doe",
+    email: "john.doe@example.com",
+    role: "Manager",
+    branch: "New York",
+    status: true,
+  },
+  {
+    _id: "2",
+    image: "https://randomuser.me/api/portraits/women/2.jpg",
+    firstName: "Jane Smith",
+    email: "jane.smith@example.com",
+    role: "HR",
+    branch: "Los Angeles",
+    status: false,
+  },
+  {
+    _id: "3",
+    image: null, // No image, uses fallback avatar
+    firstName: "Michael Johnson",
+    email: "michael.johnson@example.com",
+    role: "Developer",
+    branch: "Chicago",
+    status: true,
+  },
+  {
+    _id: "4",
+    image: "https://randomuser.me/api/portraits/men/4.jpg",
+    firstName: "David Williams",
+    email: "david.williams@example.com",
+    role: "Intern",
+    branch: "Houston",
+    status: false,
+  },
+  {
+    _id: "5",
+    image: "https://randomuser.me/api/portraits/women/5.jpg",
+    firstName: "Emma Brown",
+    email: "emma.brown@example.com",
+    role: "Admin",
+    branch: "San Francisco",
+    status: true,
+  },
+  {
+    _id: "6",
+    image: null, // No image, uses fallback avatar
+    firstName: "Olivia Garcia",
+    email: "olivia.garcia@example.com",
+    role: "Tester",
+    branch: "Seattle",
+    status: false,
+  },
+  {
+    _id: "7",
+    image: "https://randomuser.me/api/portraits/men/7.jpg",
+    firstName: "Liam Martinez",
+    email: "liam.martinez@example.com",
+    role: "Team Lead",
+    branch: "Chicago",
+    status: true,
+  },
+  {
+    _id: "8",
+    image: "https://randomuser.me/api/portraits/women/8.jpg",
+    firstName: "Sophia Wilson",
+    email: "sophia.wilson@example.com",
+    role: "HR",
+    branch: "New York",
+    status: true,
+  },
+  {
+    _id: "9",
+    image: "https://randomuser.me/api/portraits/men/9.jpg",
+    firstName: "James Taylor",
+    email: "james.taylor@example.com",
+    role: "Manager",
+    branch: "San Francisco",
+    status: false,
+  },
+  {
+    _id: "10",
+    image: "https://randomuser.me/api/portraits/women/10.jpg",
+    firstName: "Isabella Davis",
+    email: "isabella.davis@example.com",
+    role: "Admin",
+    branch: "Los Angeles",
+    status: true,
+  },
+];
+
 const frameworks = [
   { value: "branch a", label: "Branch A" },
   { value: "branch b", label: "Branch B" },
@@ -31,7 +124,7 @@ const UserTable: React.FC<UserTableProps> = ({ data }) => {
   const rowsPerPage = 10;
 
   // Filter and search logic
-  const filteredUsers = data;
+  const filteredUsers = dummyUsers;
 
   // Pagination logic
   const totalPages = Math.ceil(filteredUsers.length / rowsPerPage);
@@ -185,7 +278,7 @@ const UserTable: React.FC<UserTableProps> = ({ data }) => {
             </div>
           </>
         ) : (
-          <EmptyData title={"User"}/>
+          <EmptyData title={"User"} />
         )}
       </div>
     </div>

@@ -58,7 +58,7 @@ const Depreciation = () => {
           <div className="col-span-1 border rounded p-3 flex flex-col gap-4">
             <h1 className="font-normal text-black text-lg tracking-wide pb-3"> Value</h1>
 
-            <div className="flex gap-3">
+            {/* <div className="flex gap-3">
               <div className="grid w-full items-center gap-2">
                 <Label htmlFor="systemEntryNumber">System Entry Number</Label>
                 <Input
@@ -82,7 +82,7 @@ const Depreciation = () => {
                   value={isReadOnly ? dummyData.depreciationRate : ""}
                 />
               </div>
-            </div>
+            </div> */}
 
             <div className="grid w-full items-center gap-2">
               <Label htmlFor="openingBalance">Opening Balance (OB)*</Label>
@@ -96,7 +96,7 @@ const Depreciation = () => {
               />
             </div>
 
-            <div className="flex gap-3">
+            {/* <div className="flex gap-3">
               <div className="grid w-full items-center gap-2">
                 <Label htmlFor="addition1A">Addition 1A</Label>
                 <Input
@@ -120,7 +120,7 @@ const Depreciation = () => {
                   value={isReadOnly ? dummyData.disposals1A : ""}
                 />
               </div>
-            </div>
+            </div> */}
 
             <div className="grid w-full items-center gap-2">
               <Label htmlFor="valueBalance">Balance</Label>
@@ -137,32 +137,33 @@ const Depreciation = () => {
 
           <div className="col-span-1 border rounded-md p-3 flex flex-col gap-4">
             <h1 className="font-medium text-black text-lg tracking-wide pb-3"> Depreciation</h1>
-
-            <div className="grid w-full items-center gap-2">
-              <Label htmlFor="netBookValue">Net Book Value (NBV)</Label>
-              <Input
-                type="text"
-                id="netBookValue"
-                placeholder="AED"
-                className="h-12"
-                readOnly={isReadOnly}
-                value={isReadOnly ? dummyData.netBookValue : ""}
-              />
-            </div>
-
-            <div className="grid w-full items-center gap-2 ">
-              <Label htmlFor="depreciationOpeningBalance">Opening Balance (OB)*</Label>
-              <Input
-                type="text"
-                id="depreciationOpeningBalance"
-                placeholder="AED"
-                className="h-12"
-                readOnly={isReadOnly}
-                value={isReadOnly ? dummyData.depreciationOpeningBalance : ""}
-              />
-            </div>
-
             <div className="flex gap-3">
+              <div className="grid w-full items-center gap-2">
+                <Label htmlFor="netBookValue">Net Book Value (NBV)</Label>
+                <Input
+                  type="text"
+                  id="netBookValue"
+                  placeholder="AED"
+                  className="h-12"
+                  readOnly={isReadOnly}
+                  value={isReadOnly ? dummyData.netBookValue : ""}
+                />
+              </div>
+
+              <div className="grid w-full items-center gap-2 ">
+                <Label htmlFor="depreciationOpeningBalance">Opening Balance (OB)*</Label>
+                <Input
+                  type="text"
+                  id="depreciationOpeningBalance"
+                  placeholder="AED"
+                  className="h-12"
+                  readOnly={isReadOnly}
+                  value={isReadOnly ? dummyData.depreciationOpeningBalance : ""}
+                />
+              </div>
+            </div>
+
+            {/* <div className="flex gap-3">
               <div className="grid w-full items-center gap-2">
                 <Label htmlFor="addition1B">Addition 1B</Label>
                 <Input
@@ -186,7 +187,7 @@ const Depreciation = () => {
                   value={isReadOnly ? dummyData.disposals1B : ""}
                 />
               </div>
-            </div>
+            </div> */}
 
             <div className="grid w-full items-center gap-2">
               <Label htmlFor="depreciationBalance">Balance</Label>

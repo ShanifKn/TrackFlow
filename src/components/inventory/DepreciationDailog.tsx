@@ -163,9 +163,7 @@ const DepreciationDailog: React.FC<AlertDialogDemoProps> = ({ open, onClose }) =
                       </div>
                     </div>
 
-                    <div className="flex justify-end">
-                      <Button className="mt-4">Create</Button>
-                    </div>
+
                   </AccordionContent>
                 </AccordionItem>
               ))}

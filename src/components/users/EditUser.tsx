@@ -25,9 +25,8 @@ const frameworks = [
 const roles = [
   { label: "Admin", value: "admin" },
   { label: "Manager", value: "manager" },
-  { label: "Asset", value: "Inventory" },
+  { label: "Finance", value: "Inventory" },
   { label: "Inventory", value: "Asset" },
-  { label: "Staff", value: "staff" },
 ];
 
 const validationSchema = Yup.object().shape({
@@ -168,6 +167,48 @@ const EditUser = ({ id }: any) => {
           <div className="col-span-2 bg-white p-6 rounded flex flex-col gap-6 justify-between">
             <div className="flex flex-col gap-6">
               <h1 className="font-semibold text-black text-xl tracking-wide">Edit Profile</h1>
+
+              <div className="grid w-full gap-2 mt-3">
+                <Label htmlFor="branch">Company</Label>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <Button
+                      variant="outline"
+                      role="combobox"
+                      className="w-full justify-between h-10">
+                      {values.branch ? frameworks.find((f) => f.value === values.branch)?.label : "Select company..."}
+                      <ChevronsUpDown className="opacity-50" />
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-96 p-0">
+                    <Command>
+                      <CommandInput
+                        placeholder="Search company..."
+                        className="h-9"
+                      />
+                      <CommandList>
+                        <CommandEmpty>No branch found.</CommandEmpty>
+                        <CommandGroup>
+                          {frameworks.map((framework) => (
+                            <CommandItem
+                              key={framework.value}
+                              value={framework.value}
+                              onSelect={() => setFieldValue("branch", framework.value)}>
+                              {framework.label}
+                              <Check className={`ml-auto ${values.branch === framework.value ? "opacity-100" : "opacity-0"}`} />
+                            </CommandItem>
+                          ))}
+                        </CommandGroup>
+                      </CommandList>
+                    </Command>
+                  </PopoverContent>
+                </Popover>
+                <ErrorMessage
+                  name="branch"
+                  component="p"
+                  className="text-red-500 text-sm"
+                />
+              </div>
 
               <div className="flex gap-4">
                 {/* Branch Selection */}
