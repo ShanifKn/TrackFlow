@@ -167,7 +167,7 @@ const ProductList: React.FC<ProductTableProps> = ({ data }) => {
                 </td>
 
                 <td className="px-4 py-2 border border-gray-200">{user.category}</td>
-                <td className="px-4 py-2  line-clamp-1">{user.description}</td>
+                <td className="px-4 py-2 border border-gray-200">{user.description}</td>
                 <td className="px-4 py-2 border border-gray-200 text-center">
                   <label className="relative inline-flex items-center cursor-pointer">
                     <input

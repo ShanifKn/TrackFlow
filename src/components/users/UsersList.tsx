@@ -62,7 +62,7 @@ const UsersList = () => {
   }, []);
   return (
     <div>
-      <UserBanner />
+      {/* <UserBanner /> */}
 
       <UserTable data={data} />
     </div>
