@@ -43,7 +43,6 @@ const ReportBanner = () => {
   return (
     <div className="bg-white p-6 gap-4 my-7">
       <h1 className="font-medium text-gray-400 text-xl tracking-wide">Report Filter</h1>
-
       <div className="flex gap-4 mt-5">
         <div className="grid w-full items-center gap-2">
           <Popover>
@@ -237,8 +236,7 @@ const ReportBanner = () => {
           </Popover>
         </div>
       </div>
-
-      <Button className=" text-white bg-[#006666] hover:bg-emerald-800 mx-auto mt-5">Download</Button>
+      <Button className=" text-white bg-[#006666] hover:bg-emerald-800 mx-auto mt-5 ml-2">Download</Button> (xlsx, pdf)
     </div>
   );
 };

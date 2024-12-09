@@ -36,7 +36,7 @@ const InventoryTable: React.FC<ProductTableProps> = ({ data }) => {
   const paginatedUsers = filteredUsers.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage);
 
   return (
-    <div className="my-10 bg-white p-4 rounded gap-4 h-[80vh]">
+    <div className="my-10 bg-white p-4 rounded gap-4 h-full">
       <div className="flex items-center justify-between mb-4">
         <input
           type="text"

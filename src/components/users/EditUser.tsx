@@ -141,9 +141,11 @@ const EditUser = ({ id }: any) => {
 
               <div className="flex flex-col">
                 <h1 className="text-black font-normal text-lg uppercase">
-                  Mark Jecno
+                  {initialValues.firstName} {initialValues.lastName}
                 </h1>
-                <span className="text-black text-base">Purchase</span>
+                <span className="text-black text-base">
+                  {initialValues.role}
+                </span>
               </div>
             </div>
 
@@ -163,7 +165,13 @@ const EditUser = ({ id }: any) => {
 
             <div className="grid w-full items-center gap-2">
               <Label htmlFor="email">Email</Label>
-              <Field name="email" as={Input} type="email" placeholder="Email" />
+              <Field
+                name="email"
+                as={Input}
+                type="email"
+                placeholder="Email"
+                disabled
+              />
               <ErrorMessage
                 name="email"
                 component="p"
@@ -178,6 +186,7 @@ const EditUser = ({ id }: any) => {
                 as={Input}
                 type="password"
                 placeholder="Password"
+                disabled
               />
               <ErrorMessage
                 name="password"

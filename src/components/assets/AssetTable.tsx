@@ -40,7 +40,7 @@ const AssetTable: React.FC<ProductTableProps> = ({ data }) => {
   const paginatedUsers = filteredUsers.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage);
 
   return (
-    <div className="my-10 bg-white p-4 rounded gap-4 h-[80vh]">
+    <div className="my-10 bg-white p-4 rounded gap-4 h-full">
       <div className="flex items-center justify-between mb-4">
         <input
           type="text"
@@ -127,7 +127,11 @@ const AssetTable: React.FC<ProductTableProps> = ({ data }) => {
                 <td className="px-4 py-2 border border-gray-200">{user.branch}</td>
                 <td className="px-4 py-2 border border-gray-200 text-center">
                   <div className="flex items-center justify-center space-x-2">
-                    <Button className="border  border-teal-900 text-white ">view</Button>
+                    <Button
+                      className="border  border-teal-900 text-white "
+                      onClick={() => router.push("/inventory/1231")}>
+                      view
+                    </Button>
                   </div>
                 </td>
               </tr>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Formik, Field } from "formik";
 import * as yup from "yup";
 import ImageUploader from "./ImageUploader";
@@ -22,7 +22,11 @@ import {
   CommandList,
 } from "@/components/ui/command";
 import { cn } from "@/lib/utils";
-import { addProductProfile } from "@/app/api/services/product.service";
+import {
+  addProductProfile,
+  GetOneProductProfile,
+  updateProductProfile,
+} from "@/app/api/services/product.service";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
 
@@ -33,15 +37,6 @@ const frameworks = [
   { value: "branch d", label: "Branch D" },
   { value: "branch e", label: "Branch E" },
 ];
-
-const initialValues = {
-  name: "",
-  category: "",
-  brand: "",
-  specification: "",
-  description: "",
-  imageUrls: [],
-};
 
 // Define Yup validation schema
 const schema = yup.object({
@@ -61,20 +56,46 @@ const schema = yup.object({
     .required("Description is required"),
 });
 
-const AddProduct = () => {
+const EditProduct = ({ id }: any) => {
   const [open, setOpen] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
-
+  let [initialValues, setInitialValues] = useState({
+    productId: "",
+    name: "",
+    category: "",
+    brand: "",
+    specification: "",
+    description: "",
+    imageUrls: [],
+  });
   const { toast } = useToast();
   const router = useRouter(); // Initialize the router
 
   const handleOpenDialog = () => setDialogOpen(true);
   const handleCloseDialog = () => setDialogOpen(false);
 
+  useEffect(() => {
+    const getUserDetails = async () => {
+      const product = await GetOneProductProfile(id);
+      console.log("user", product.data);
+      setInitialValues({
+        productId: product.data._id || "",
+        name: product.data.name || "",
+        category: product.data.category || "",
+        brand: product.data.brand || "",
+        specification: product.data.specification || "",
+        description: product.data.description || "",
+        imageUrls: [],
+      });
+    };
+
+    getUserDetails();
+  }, [id]); // Re-fetch if the `id` changes
+
   const onSubmit = async (values: typeof initialValues) => {
     try {
       console.log("Form Data:", values);
-      await addProductProfile(values);
+      await updateProductProfile(values);
 
       // Show success toast
       toast({
@@ -100,9 +121,11 @@ const AddProduct = () => {
 
       <div className="col-span-2 bg-white p-6 rounded flex flex-col justify-between">
         <Formik
+         enableReinitialize={true}
           initialValues={initialValues}
           validationSchema={schema}
           onSubmit={onSubmit}
+
         >
           {({ values, setFieldValue, errors, touched }) => (
             <Form className="flex flex-col gap-6">
@@ -282,4 +305,4 @@ const AddProduct = () => {
   );
 };
 
-export default AddProduct;
+export default EditProduct;

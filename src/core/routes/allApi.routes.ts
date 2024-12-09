@@ -1,6 +1,6 @@
 const userlogin = "/login";
 const createAsset = "/create-asset";
-const baseurl = "http://localhost:8001";
+const baseurl = "/";
 const updateurl = "/user/update";
 const useradd = "/add-user";
 const userprofile = "/user";
@@ -10,6 +10,11 @@ const updatevendorurl = "/vendor/update";
 const vendoradd = "/add-vendor";
 const vednorprofile = "/vendor";
 const vendorlist = "/vendor-list";
+
+const updateproducturl = "/product/update";
+const productadd = "/add-product";
+const productprofile = "/product";
+const productlist = "/product-list";
 
 export const ApiRoutes: any = {
   // user api section //
@@ -27,4 +32,9 @@ export const ApiRoutes: any = {
 
   // asset api section //
   CREATE_ASSET: createAsset,
+
+  UPDATE_PRODUCT_PROFILE :updateproducturl,
+  ADD_PRODUCT_PROFILE :productadd,
+  GET_PRODUCT_PROFILE_LIST:productlist,
+  GET_PRODUCT_PROFILE :productprofile,
 };

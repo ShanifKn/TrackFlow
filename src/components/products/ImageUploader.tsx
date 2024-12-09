@@ -38,7 +38,7 @@ const ImageUploader = () => {
   return (
     <div className="flex flex-col items-center gap-4">
       {/* Main Image Display */}
-      <div className="flex gap-4 items-center">
+      <div className="flex flex-col gap-4 items-center">
         {/* Main image on the left */}
         <div className="w-72 h-72 rounded-md overflow-hidden border-2 border-gray-300">
           <img
@@ -49,11 +49,11 @@ const ImageUploader = () => {
         </div>
 
         {/* Thumbnails on the right */}
-        <div className="flex flex-col gap-4">
+        <div className="flex  gap-4">
           {Array.from({ length: 3 }).map((_, index) => (
             <div
               key={index}
-              className="w-16 h-16 flex items-center justify-center rounded-md border-2 border-gray-300 cursor-pointer">
+              className="w-16 h-16 flex flex-col items-center justify-center rounded-md border-2 border-gray-300 cursor-pointer">
               {/* If the image slot is filled, display the image; otherwise show the '+' */}
               {images[index + 1] ? (
                 <img
