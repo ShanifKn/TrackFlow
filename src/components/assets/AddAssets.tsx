@@ -56,7 +56,11 @@ const AddAssets = () => {
                 </div>
               </div>
 
-              <Button size={"lg"}>Save Asset</Button>
+              <Button
+                type="submit"
+                size={"lg"}>
+                Save Asset
+              </Button>
             </div>
           </Form>
         )}

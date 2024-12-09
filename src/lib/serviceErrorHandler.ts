@@ -8,6 +8,8 @@ export default function showErrorToast(error: ApiError[]) {
     return;
   }
 
+  console.log("errer", toast);
+
   error.forEach((e) => {
     toast({
       title: `Error: ${e.name || e.statusCode}`,

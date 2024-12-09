@@ -1,6 +1,6 @@
 const userlogin = "/login";
 const createAsset = "/create-asset";
-const baseurl = "http://localhost:8001";
+const baseurl = "/";
 const updateurl = "/user/update";
 const useradd = "/add-user";
 const userprofile = "/user";
