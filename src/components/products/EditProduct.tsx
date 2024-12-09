@@ -116,7 +116,7 @@ const EditProduct = ({ id }: any) => {
         <h1 className="font-semibold text-black text-xl tracking-wide">
           Product Image
         </h1>
-        <ImageUploader />
+        {/* <ImageUploader /> */}
       </div>
 
       <div className="col-span-2 bg-white p-6 rounded flex flex-col justify-between">

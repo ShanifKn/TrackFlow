@@ -8,6 +8,7 @@ import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, Command
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation"; // Import useRouter
+import EmptyData from "../ui/emptyData";
 // Define the props for the component
 type UserTableProps = {
   data: TableData[];
@@ -100,86 +101,92 @@ const UserTable: React.FC<UserTableProps> = ({ data }) => {
           </div>
         </div>
 
-        {/* Table */}
-        <div className="overflow-x-auto">
-          <table className="min-w-full table-auto border-collapse border border-gray-200 shadow-lg rounded-lg">
-            <thead className="bg-gray-100">
-              <tr>
-                <th className="px-4 py-2 border border-gray-200 text-left">Image</th>
-                <th className="px-4 py-2 border border-gray-200 text-left">Name</th>
-                <th className="px-4 py-2 border border-gray-200 text-left">Email</th>
-                <th className="px-4 py-2 border border-gray-200 text-left">Role</th>
-                <th className="px-4 py-2 border border-gray-200 text-left">Branch</th>
-                <th className="px-4 py-2 border border-gray-200 text-center">Status</th>
-                <th className="px-4 py-2 border border-gray-200 text-center">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {paginatedUsers.map((user: any) => (
-                <tr
-                  key={user._id}
-                  className="hover:bg-gray-50">
-                  <td className="px-4 py-2 border border-gray-200">
-                    {user.image ? (
-                      <img
-                        src={user.image}
-                        alt={user.firstName}
-                        className="w-10 h-10 rounded-full"
-                      />
-                    ) : (
-                      <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-gray-600 font-bold uppercase">{user.firstName.charAt(0)}</div>
-                    )}
-                  </td>
-                  <td className="px-4 py-2 border border-gray-200">{user.firstName}</td>
-                  <td className="px-4 py-2 border border-gray-200">{user.email}</td>
-                  <td className="px-4 py-2 border border-gray-200">{user.role}</td>
-                  <td className="px-4 py-2 border border-gray-200">{user.branch}</td>
-                  <td className="px-4 py-2 border border-gray-200 text-center">
-                    <label className="relative inline-flex items-center cursor-pointer">
-                      <input
-                        type="checkbox"
-                        checked={user.status}
-                        className="sr-only peer"
-                        readOnly
-                      />
-                      <div className="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-teal-600"></div>
-                    </label>
-                  </td>
-                  <td className="px-4 py-2 border border-gray-200 text-center">
-                    <div className="flex items-center justify-center space-x-2">
-                      <button
-                        className="text-teal-600 hover:text-teal-800"
-                        onClick={() => handleRedirect(user._id)} // Handle redirection on click
-                      >
-                        <UserPen />
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        {data.length > 0 ? (
+          <>
+            {/* Table */}
+            <div className="overflow-x-auto">
+              <table className="min-w-full table-auto border-collapse border border-gray-200 shadow-lg rounded-lg">
+                <thead className="bg-gray-100">
+                  <tr>
+                    <th className="px-4 py-2 border border-gray-200 text-left">Image</th>
+                    <th className="px-4 py-2 border border-gray-200 text-left">Name</th>
+                    <th className="px-4 py-2 border border-gray-200 text-left">Email</th>
+                    <th className="px-4 py-2 border border-gray-200 text-left">Role</th>
+                    <th className="px-4 py-2 border border-gray-200 text-left">Branch</th>
+                    <th className="px-4 py-2 border border-gray-200 text-center">Status</th>
+                    <th className="px-4 py-2 border border-gray-200 text-center">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {paginatedUsers.map((user: any) => (
+                    <tr
+                      key={user._id}
+                      className="hover:bg-gray-50">
+                      <td className="px-4 py-2 border border-gray-200">
+                        {user.image ? (
+                          <img
+                            src={user.image}
+                            alt={user.firstName}
+                            className="w-10 h-10 rounded-full"
+                          />
+                        ) : (
+                          <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-gray-600 font-bold uppercase">{user.firstName.charAt(0)}</div>
+                        )}
+                      </td>
+                      <td className="px-4 py-2 border border-gray-200">{user.firstName}</td>
+                      <td className="px-4 py-2 border border-gray-200">{user.email}</td>
+                      <td className="px-4 py-2 border border-gray-200">{user.role}</td>
+                      <td className="px-4 py-2 border border-gray-200">{user.branch}</td>
+                      <td className="px-4 py-2 border border-gray-200 text-center">
+                        <label className="relative inline-flex items-center cursor-pointer">
+                          <input
+                            type="checkbox"
+                            checked={user.status}
+                            className="sr-only peer"
+                            readOnly
+                          />
+                          <div className="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-teal-600"></div>
+                        </label>
+                      </td>
+                      <td className="px-4 py-2 border border-gray-200 text-center">
+                        <div className="flex items-center justify-center space-x-2">
+                          <button
+                            className="text-teal-600 hover:text-teal-800"
+                            onClick={() => handleRedirect(user._id)} // Handle redirection on click
+                          >
+                            <UserPen />
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
 
-        {/* Pagination */}
-        <div className="flex items-center justify-between mt-4">
-          <Button
-            className="px-4 bg-gray-200 rounded disabled:opacity-50 text-black py-2 hover:bg-gray-300"
-            onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-            disabled={currentPage === 1}>
-            Previous
-          </Button>
-          <span>
-            Page {currentPage} of {totalPages}
-          </span>
+            {/* Pagination */}
+            <div className="flex items-center justify-between mt-4">
+              <Button
+                className="px-4 bg-gray-200 rounded disabled:opacity-50 text-black py-2 hover:bg-gray-300"
+                onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                disabled={currentPage === 1}>
+                Previous
+              </Button>
+              <span>
+                Page {currentPage} of {totalPages}
+              </span>
 
-          <Button
-            className="px-4 bg-gray-200 rounded disabled:opacity-50 text-black py-2 hover:bg-gray-300"
-            onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
-            disabled={currentPage === totalPages}>
-            Next
-          </Button>
-        </div>
+              <Button
+                className="px-4 bg-gray-200 rounded disabled:opacity-50 text-black py-2 hover:bg-gray-300"
+                onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+                disabled={currentPage === totalPages}>
+                Next
+              </Button>
+            </div>
+          </>
+        ) : (
+          <EmptyData title={"User"}/>
+        )}
       </div>
     </div>
   );

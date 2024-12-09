@@ -16,9 +16,7 @@ export async function CheckApi() {
   return {} as any;
 }
 
-
 export async function updateProductProfile(values: any) {
-
   const apiPayload = {
     url: ApiRoutesEnum.UPDATE_PRODUCT_PROFILE,
     method: RequestMethod.PATCH,
@@ -28,7 +26,6 @@ export async function updateProductProfile(values: any) {
   const response = await fetch("/api", {
     method: RequestMethod.POST,
     body: JSON.stringify(apiPayload),
-   
   });
 
   const { data, error } = await response.json();
@@ -51,7 +48,6 @@ export async function addProductProfile(values: any) {
   const response = await fetch("/api", {
     method: RequestMethod.POST,
     body: JSON.stringify(apiPayload),
-   
   });
 
   const { data, error } = await response.json();
@@ -73,7 +69,6 @@ export async function GetProductProfileList(values: any) {
   const response = await fetch("/api", {
     method: RequestMethod.POST,
     body: JSON.stringify(apiPayload),
-   
   });
 
   const { data, error } = await response.json();
@@ -90,13 +85,12 @@ export async function GetOneProductProfile(id: any) {
   const apiPayload = {
     url: ApiRoutesEnum.GET_PRODUCT_PROFILE,
     method: RequestMethod.GET,
-    params:id
+    params: id,
   };
 
   const response = await fetch("/api", {
     method: RequestMethod.POST,
     body: JSON.stringify(apiPayload),
-   
   });
 
   const { data, error } = await response.json();
@@ -109,3 +103,19 @@ export async function GetOneProductProfile(id: any) {
   return {} as any; // Return empty object if error occurs
 }
 
+export async function UploadImage(file: any) {
+  try {
+    const response = await fetch("http://localhost:8001/image-upload", {
+      method: RequestMethod.POST, // Set the method to POST
+      body: file, // Send the FormData as the body
+    });
+
+    const data = await response.json();
+
+    if (data) return data; // Successfully updated}
+  } catch (error) {
+    console.log(error);
+  }
+
+  return {} as any; // Return empty object if error occurs
+}

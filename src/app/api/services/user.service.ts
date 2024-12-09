@@ -2,7 +2,6 @@ import { RequestMethod } from "@/lib/enums/httpMethods.enum";
 import { ApiRoutesEnum } from "@/lib/enums/routes.enum";
 import showErrorToast from "@/lib/serviceErrorHandler";
 
-
 export async function CheckApi() {
   const apicheck: any = { url: ApiRoutesEnum.API_CHECK, method: RequestMethod.GET };
 
@@ -17,9 +16,7 @@ export async function CheckApi() {
   return {} as any;
 }
 
-
 export async function updateUserProfile(values: any) {
-
   const apiPayload = {
     url: ApiRoutesEnum.UPDATE_USER_PROFILE,
     method: RequestMethod.PATCH,
@@ -29,7 +26,6 @@ export async function updateUserProfile(values: any) {
   const response = await fetch("/api", {
     method: RequestMethod.POST,
     body: JSON.stringify(apiPayload),
-   
   });
 
   const { data, error } = await response.json();
@@ -52,7 +48,6 @@ export async function addUserProfile(values: any) {
   const response = await fetch("/api", {
     method: RequestMethod.POST,
     body: JSON.stringify(apiPayload),
-   
   });
 
   const { data, error } = await response.json();
@@ -75,7 +70,6 @@ export async function GetUserProfileList(values: any) {
   const response = await fetch("/api", {
     method: RequestMethod.POST,
     body: JSON.stringify(apiPayload),
-   
   });
 
   const { data, error } = await response.json();
@@ -92,13 +86,12 @@ export async function GetOneUserProfile(id: any) {
   const apiPayload = {
     url: ApiRoutesEnum.GET_USER_PROFILE,
     method: RequestMethod.GET,
-    params:id
+    params: id,
   };
 
   const response = await fetch("/api", {
     method: RequestMethod.POST,
     body: JSON.stringify(apiPayload),
-   
   });
 
   const { data, error } = await response.json();
@@ -110,4 +103,3 @@ export async function GetOneUserProfile(id: any) {
   showErrorToast(error); // Display error toast if an error occurred
   return {} as any; // Return empty object if error occurs
 }
-
